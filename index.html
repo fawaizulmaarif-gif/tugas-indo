@@ -20,7 +20,7 @@
     }
 
     header {
-      height: 60vh;
+      height: 50vh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -46,15 +46,14 @@
     }
 
     section {
-      width: 90%;
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 30px;
+      width: 70%; /* lebih ke sisi */
+      margin: 30px auto;
+      padding: 20px 30px;
       background: rgba(255,255,255,0.9);
       border-radius: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
       opacity: 0;
-      transform: translateY(40px);
+      transform: translateY(20px);
       transition: all 0.8s ease;
     }
 
@@ -68,21 +67,21 @@
     }
 
     p {
-      line-height: 1.8;
+      line-height: 1.6;
       text-align: justify;
     }
 
     h2 {
       text-align: center;
       font-size: 26px;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     img {
-      width: 600px;
-      max-width: 95%;
+      width: 500px;
+      max-width: 90%;
       display: block;
-      margin: 30px auto;
+      margin: 20px auto;
       border-radius: 20px;
       box-shadow: 0 15px 35px rgba(0,0,0,0.4);
       transition: transform 0.2s ease;
@@ -91,7 +90,7 @@
     .kelompok {
       text-align: center;
       font-size: 18px;
-      margin-top: 40px;
+      margin-top: 30px;
     }
 
     footer {
@@ -99,7 +98,7 @@
       padding: 20px;
       background: #1b5e20;
       color: white;
-      margin-top: 40px;
+      margin-top: 30px;
     }
 
     .daun {
@@ -135,7 +134,7 @@
 
 <section>
   <p>
-  Bukit Bagarurung merupakan salah satu destinasi wisata alam yang berada di Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Provinsi Jawa Barat, Indonesia. Kawasan ini berupa perbukitan dengan hutan pinus yang tumbuh rapat dan udara sejuk karena berada di dataran tinggi. Dari puncaknya, pengunjung dapat melihat bentang alam yang luas, termasuk perbukitan sekitar Darma. Pada cuaca cerah, Waduk Darma dan siluet Gunung Ciremai terlihat dari kejauhan.
+  Bukit Bagarurung merupakan salah satu destinasi wisata alam yang berada di Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Provinsi Jawa Barat, Indonesia. Kawasan ini berupa perbukitan dengan hutan pinus yang tumbuh rapat dan udara sejuk. Dari puncaknya, pengunjung dapat melihat bentang alam luas, termasuk perbukitan sekitar Darma. Pada cuaca cerah, Waduk Darma dan siluet Gunung Ciremai terlihat dari kejauhan.
   </p>
 
   <p>
@@ -146,7 +145,7 @@
 <section>
   <h2>Penjelasan ADIKSIMBA</h2>
   <p><strong>Apa:</strong> Destinasi wisata alam dengan panorama perbukitan, hutan pinus, serta nilai sejarah dari sisa bangunan lama.</p>
-  <p><strong>Di mana:</strong> Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Provinsi Jawa Barat.</p>
+  <p><strong>Di mana:</strong> Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Jawa Barat.</p>
   <p><strong>Kapan:</strong> Sejak masa kolonial Belanda hingga sekarang.</p>
   <p><strong>Siapa:</strong> Dahulu digunakan Belanda, kini dikelola masyarakat setempat dan dikunjungi wisatawan lokal serta pelajar.</p>
   <p><strong>Mengapa:</strong> Lokasi strategis di ketinggian dengan panorama indah, udara sejuk, dan suasana alam yang tenang.</p>
@@ -193,21 +192,19 @@ const sections = document.querySelectorAll("section");
 window.addEventListener("scroll", () => {
   sections.forEach(sec => {
     const top = sec.getBoundingClientRect().top;
-    if(top < window.innerHeight - 100){
+    if(top < window.innerHeight - 50){
       sec.classList.add("show");
     }
   });
 });
 
-// Foto interaktif: bounce + 3D tilt
+// Foto interaktif
 const photo = document.getElementById("mainPhoto");
-
 photo.addEventListener("click", function(){
   photo.classList.remove("touch-animate");
   void photo.offsetWidth;
   photo.classList.add("touch-animate");
 });
-
 photo.addEventListener("mousemove", function(e){
   const rect = photo.getBoundingClientRect();
   const x = e.clientX - rect.left;
@@ -218,11 +215,9 @@ photo.addEventListener("mousemove", function(e){
   const dy = (y - cy) / cy;
   photo.style.transform = `rotateX(${-dy*10}deg) rotateY(${dx*10}deg) scale(1.05)`;
 });
-
 photo.addEventListener("mouseleave", function(){
   photo.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
 });
-
 photo.addEventListener("touchmove", function(e){
   const touch = e.touches[0];
   const rect = photo.getBoundingClientRect();
@@ -234,7 +229,6 @@ photo.addEventListener("touchmove", function(e){
   const dy = (y - cy) / cy;
   photo.style.transform = `rotateX(${-dy*10}deg) rotateY(${dx*10}deg) scale(1.05)`;
 });
-
 photo.addEventListener("touchend", function(){
   photo.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
 });
