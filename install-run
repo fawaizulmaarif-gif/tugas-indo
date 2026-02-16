@@ -1,0 +1,44 @@
+cat > install.sh << 'EOF'
+#!/bin/bash
+
+echo "🚀 Setup Web Server Tugas.indo"
+echo "=============================="
+
+# Update
+echo "📦 Updating packages..."
+pkg update -y
+
+# Install dependencies
+echo "🔧 Installing Python & OpenSSL..."
+pkg install python openssl -y
+
+# Install ngrok untuk public access (opsional)
+echo "🌍 Installing ngrok..."
+pkg install ngrok -y
+
+# Buat direktori
+mkdir -p ~/tugas-indo
+cd ~/tugas-indo
+
+echo "✅ Setup selesai!"
+echo ""
+echo "📝 CARA MENJALANKAN:"
+echo "===================="
+echo ""
+echo "1️⃣  MODE HTTPS LOKAL (dengan domain tugas.indo):"
+echo "   cd ~/tugas-indo && python server.py"
+echo ""
+echo "   Akses di browser: https://localhost:8443"
+echo "   Atau: https://tugas.indo:8443 (jika sudah edit hosts)"
+echo ""
+echo "2️⃣  MODE PUBLIK (bisa diakses semua orang via internet):"
+echo "   Daftar akun ngrok di: https://ngrok.com"
+echo "   Login: ngrok config add-authtoken TOKEN_ANDA"
+echo "   Jalankan: cd ~/tugas-indo && python public_server.py"
+echo ""
+echo "3️⃣  EDIT HOSTS FILE (untuk domain tugas.indo):"
+echo "   su -c 'echo \"127.0.0.1 tugas.indo\" >> /etc/hosts'"
+echo ""
+EOF
+
+chmod +x install.sh

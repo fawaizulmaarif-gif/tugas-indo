@@ -1,0 +1,52 @@
+cat > public_server.py << 'EOF'
+#!/usr/bin/env python3
+"""
+Server dengan ngrok tunnel untuk akses publik
+Install ngrok: pkg install ngrok
+"""
+import http.server
+import socketserver
+import os
+import subprocess
+import threading
+import time
+
+PORT = 8080
+
+class Handler(http.server.SimpleHTTPRequestHandler):
+    def end_headers(self):
+        self.send_header('Access-Control-Allow-Origin', '*')
+        super().end_headers()
+
+def start_ngrok():
+    """Start ngrok tunnel"""
+    print("🌍 Starting ngrok tunnel...")
+    time.sleep(2)
+    try:
+        result = subprocess.run(
+            ["ngrok", "http", str(PORT), "--region", "ap"],
+            capture_output=True, text=True, timeout=10
+        )
+    except:
+        pass
+    
+    print("""
+    🌐 Ambil URL publik dari output di atas (https://xxxx.ngrok.io)
+    📱 Bagikan URL tersebut ke teman/tutor Anda
+    """)
+
+def run():
+    with socketserver.TCPServer(("0.0.0.0", PORT), Handler) as httpd:
+        print(f"✅ Server berjalan di http://localhost:{PORT}")
+        
+        # Start ngrok di thread terpisah
+        ngrok_thread = threading.Thread(target=start_ngrok)
+        ngrok_thread.daemon = True
+        ngrok_thread.start()
+        
+        print("🚀 Buka https://dashboard.ngrok.com/status untuk melihat URL publik")
+        httpd.serve_forever()
+
+if __name__ == "__main__":
+    run()
+EOF

@@ -1,0 +1,92 @@
+cat > server.py << 'EOF'
+#!/usr/bin/env python3
+import http.server
+import ssl
+import socketserver
+import os
+
+# Konfigurasi
+HOST = "0.0.0.0"  # Listen di semua interface
+PORT = 8443       # Port HTTPS (bisa diganti 443 jika root)
+DOMAIN = "tugas.indo"
+
+class MyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
+    def end_headers(self):
+        self.send_header('Access-Control-Allow-Origin', '*')
+        super().end_headers()
+    
+    def log_message(self, format, *args):
+        print(f"\033[92m[{self.log_date_time_string()}]\033[0m {self.address_string()} - {format%args}")
+
+def generate_self_signed_cert():
+    """Generate sertifikat SSL self-signed"""
+    print("🔐 Generating SSL Certificate...")
+    
+    # Buat private key dan sertifikat
+    os.system(f"""
+    openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+    -keyout server.key -out server.crt \
+    -subj "/C=ID/ST=Jawa Barat/L=Kuningan/O=Wisata Bagarurung/CN={DOMAIN}" \
+    -addext "subjectAltName=DNS:{DOMAIN},DNS:*.{DOMAIN},IP:127.0.0.1,IP:0.0.0.0"
+    """)
+    
+    print("✅ Certificate generated: server.crt & server.key")
+
+def setup_hosts():
+    """Tambahkan entry ke /etc/hosts (memerlukan root)"""
+    hosts_entry = f"127.0.0.1 {DOMAIN}"
+    print(f"""
+    ⚠️  Untuk mengakses https://{DOMAIN}, tambahkan baris berikut ke /etc/hosts:
+    
+    {hosts_entry}
+    
+    Jalankan sebagai root:
+    echo "{hosts_entry}" >> /etc/hosts
+    
+    Atau akses langsung via IP: https://<IP-Anda>:{PORT}
+    """)
+
+def run_server():
+    # Generate cert jika belum ada
+    if not os.path.exists("server.crt") or not os.path.exists("server.key"):
+        generate_self_signed_cert()
+    
+    # Setup handler
+    handler = MyHTTPRequestHandler
+    httpd = socketserver.TCPServer((HOST, PORT), handler)
+    
+    # Wrap dengan SSL
+    context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
+    context.load_cert_chain('server.crt', 'server.key')
+    httpd.socket = context.wrap_socket(httpd.socket, server_side=True)
+    
+    print(f"""
+    🚀 Server HTTPS Berjalan!
+    ==========================
+    📍 Domain: https://{DOMAIN}:{PORT}
+    🌐 Host: {HOST}
+    🔒 Port: {PORT}
+    📁 Directory: {os.getcwd()}
+    
+    📝 Akses via:
+       • https://localhost:{PORT}
+       • https://127.0.0.1:{PORT}
+       • https://<IP-Lokal-Anda>:{PORT}
+       
+    ⚠️  Karena ini self-signed certificate, browser akan menampilkan warning.
+       Klik "Advanced" -> "Proceed" atau "Accept Risk" untuk melanjutkan.
+       
+    🛑 Tekan Ctrl+C untuk berhenti
+    """)
+    
+    setup_hosts()
+    
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        print("\n\n🛑 Server dihentikan")
+        httpd.shutdown()
+
+if __name__ == "__main__":
+    run_server()
+EOF

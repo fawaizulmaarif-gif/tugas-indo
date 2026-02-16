@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wisata Bagarurung</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, green, red);
+    color:white;
+}
+
+header{
+    text-align:center;
+    padding:40px;
+    background:rgba(0,0,0,0.4);
+}
+
+.container{
+    padding:20px;
+    background:rgba(0,0,0,0.6);
+    margin:20px;
+    border-radius:10px;
+}
+
+img{
+    width:100%;
+    max-width:500px;
+    margin-top:10px;
+    border-radius:10px;
+}
+
+.upload-box{
+    margin-top:20px;
+    padding:20px;
+    background:rgba(255,255,255,0.2);
+    border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Judul: Wisata Bagarurung</h1>
+</header>
+
+<div class="container">
+<p>
+Bukit Bagarurung merupakan salah satu destinasi wisata alam yang berada di Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Provinsi Jawa Barat, Indonesia. Kawasan ini berupa perbukitan dengan hutan pinus yang tumbuh cukup rapat dan udara yang relatif sejuk karena berada di dataran tinggi. Dari puncaknya dapat terlihat Waduk Darma serta siluet Gunung Ciremai.
+
+Secara sejarah, bukit ini dipercaya pernah digunakan pada masa kolonial Belanda sebagai titik pengamatan. Kini menjadi wisata alam dan bumi perkemahan.
+
+<b>ADIKSIMBA:</b><br>
+Apa: Bukit wisata alam dan sejarah.<br>
+Di mana: Desa Sakerta Timur, Darma, Kuningan, Jawa Barat.<br>
+Kapan: Era kolonial hingga sekarang.<br>
+Siapa: Dahulu Belanda, sekarang masyarakat dan wisatawan.<br>
+Mengapa: Letaknya strategis dan panoramanya indah.<br>
+Bagaimana: Menuju desa lalu jalur menanjak ke hutan pinus.
+</p>
+
+<div class="upload-box">
+<h2>Tambahkan Foto</h2>
+<input type="file" id="fotoInput" accept="image/*">
+<div id="preview"></div>
+</div>
+
+</div>
+
+<script>
+document.getElementById('fotoInput').addEventListener('change', function(event) {
+    const preview = document.getElementById('preview');
+    preview.innerHTML = "";
+    const file = event.target.files[0];
+    if(file){
+        const reader = new FileReader();
+        reader.onload = function(e){
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            preview.appendChild(img);
+        }
+        reader.readAsDataURL(file);
+    }
+});
+</script>
+
+</body>
+</html>
