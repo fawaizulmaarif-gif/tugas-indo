@@ -13,12 +13,30 @@
 
     h1 {
       text-align: center;
-      font-size: 36px;
+      font-size: 38px;
     }
 
     p {
       font-size: 20px;
       text-align: justify;
+    }
+
+    h2 {
+      margin-top: 30px;
+    }
+
+    #uploadSection {
+      display: none;
+      margin-top: 30px;
+      padding: 20px;
+      background: #f1f8e9;
+      border-radius: 10px;
+    }
+
+    img {
+      max-width: 250px;
+      margin: 10px;
+      border-radius: 10px;
     }
 
     .kelompok {
@@ -38,6 +56,20 @@
         transform: translateY(110vh);
       }
     }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1b5e20;
+    }
   </style>
 </head>
 <body>
@@ -45,20 +77,34 @@
 <h1>Bukit Bagarurung</h1>
 
 <p>
-Bukit Bagarurung merupakan salah satu destinasi wisata alam yang berada di Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Provinsi Jawa Barat, Indonesia. Kawasan ini berupa perbukitan dengan hutan pinus yang tumbuh cukup rapat dan udara yang relatif sejuk karena berada di dataran tinggi. Dari puncaknya, pengunjung dapat melihat bentang alam yang luas, termasuk area perbukitan sekitar Darma dan pada cuaca cerah dapat terlihat Waduk Darma serta siluet Gunung Ciremai di kejauhan.
+Bukit Bagarurung merupakan salah satu destinasi wisata alam yang berada di Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Provinsi Jawa Barat, Indonesia. Kawasan ini berupa perbukitan dengan hutan pinus yang tumbuh cukup rapat serta memiliki udara yang relatif sejuk karena berada di dataran tinggi. Dari puncaknya, pengunjung dapat melihat bentang alam yang luas, termasuk perbukitan di sekitar Darma. Pada cuaca cerah, Waduk Darma dan siluet Gunung Ciremai dapat terlihat dari kejauhan.
 </p>
 
 <p>
-Secara sejarah, bukit ini dipercaya oleh masyarakat setempat pernah digunakan pada masa kolonial Belanda sebagai titik pengamatan. Lokasinya yang tinggi dan terbuka menjadikannya strategis untuk memantau wilayah sekitar. Di area puncak masih terdapat sisa struktur bangunan lama yang diyakini sebagai peninggalan fungsi tersebut. Setelah masa penjajahan berakhir, kawasan ini kembali menjadi hutan alami dan tidak lagi digunakan untuk kepentingan militer atau pengawasan.
+Secara sejarah, bukit ini dipercaya pernah digunakan pada masa kolonial Belanda sebagai titik pengamatan. Letaknya yang tinggi dan terbuka menjadikannya strategis untuk memantau wilayah sekitar. Di puncaknya masih terdapat sisa struktur bangunan lama yang diyakini sebagai peninggalan masa tersebut. Setelah masa penjajahan berakhir, kawasan ini kembali menjadi hutan alami dan tidak lagi digunakan untuk kepentingan militer.
 </p>
 
-<p>
-Perkembangan fungsi bukit terjadi ketika masyarakat Desa Sakerta Timur mulai melihat potensi alamnya sebagai tempat rekreasi. Keindahan panorama, suasana yang tenang, dan lingkungan yang masih alami membuat kawasan ini mulai dikunjungi warga sekitar. Seiring waktu, Bukit Bagarurung dikenal sebagai lokasi wisata alam dan bumi perkemahan yang dimanfaatkan untuk kegiatan berkemah, fotografi, serta aktivitas luar ruang lainnya.
-</p>
+<h2>Penjelasan Berdasarkan ADIKSIMBA</h2>
 
-<p>
-Jika diuraikan berdasarkan unsur ADIKSIMBA, penjelasannya mencakup enam bagian penting: Apa, Di mana, Kapan, Siapa, Mengapa, dan Bagaimana. Seluruh unsur tersebut telah tercakup secara lengkap dalam uraian di atas.
-</p>
+<p><strong>Apa:</strong> Bukit Bagarurung adalah destinasi wisata alam yang memiliki panorama perbukitan, hutan pinus, serta nilai sejarah dari sisa bangunan lama.</p>
+
+<p><strong>Di mana:</strong> Terletak di Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Provinsi Jawa Barat, Indonesia.</p>
+
+<p><strong>Kapan:</strong> Pernah digunakan pada masa kolonial Belanda sebagai titik pengamatan. Saat ini dapat dikunjungi sepanjang tahun dan ramai pada akhir pekan.</p>
+
+<p><strong>Siapa:</strong> Pada masa kolonial dimanfaatkan oleh pihak Belanda. Saat ini dikelola masyarakat setempat dan dikunjungi wisatawan lokal serta pelajar.</p>
+
+<p><strong>Mengapa:</strong> Karena lokasinya strategis di ketinggian serta memiliki panorama indah, udara sejuk, dan suasana alam yang tenang.</p>
+
+<p><strong>Bagaimana:</strong> Dapat dicapai dengan menuju Desa Sakerta Timur, lalu melanjutkan perjalanan melalui jalur menanjak menuju kawasan hutan pinus hingga sampai di puncak.</p>
+
+<button onclick="aksesUpload()">Akses Upload Foto</button>
+
+<div id="uploadSection">
+  <h2>Upload Foto (Akses Khusus)</h2>
+  <input type="file" id="fotoInput" multiple accept="image/*">
+  <div id="preview"></div>
+</div>
 
 <div class="kelompok">
 <h2>Nama Kelompok:</h2>
@@ -69,6 +115,29 @@ Jika diuraikan berdasarkan unsur ADIKSIMBA, penjelasannya mencakup enam bagian p
 </div>
 
 <script>
+function aksesUpload() {
+  let password = prompt("Masukkan password:");
+  if(password === "142004") {
+    document.getElementById("uploadSection").style.display = "block";
+  } else {
+    alert("Password salah");
+  }
+}
+
+document.getElementById("fotoInput").addEventListener("change", function(event) {
+  const preview = document.getElementById("preview");
+  preview.innerHTML = "";
+  Array.from(event.target.files).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = document.createElement("img");
+      img.src = e.target.result;
+      preview.appendChild(img);
+    }
+    reader.readAsDataURL(file);
+  });
+});
+
 function buatDaun() {
   const daun = document.createElement("div");
   daun.classList.add("daun");
@@ -76,10 +145,7 @@ function buatDaun() {
   daun.style.left = Math.random() * window.innerWidth + "px";
   daun.style.animationDuration = (3 + Math.random() * 5) + "s";
   document.body.appendChild(daun);
-
-  setTimeout(() => {
-    daun.remove();
-  }, 8000);
+  setTimeout(() => daun.remove(), 8000);
 }
 
 setInterval(buatDaun, 500);
