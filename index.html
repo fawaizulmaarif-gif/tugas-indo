@@ -1,90 +1,92 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wisata Bagarurung</title>
+    <title>Wisata Bukit Bagarurung</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #0f9d58, #ffffff);
+            text-align: center;
+        }
 
-<style>
-body{
-    margin:0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, green, red);
-    color:white;
-}
+        h1 {
+            color: #065f3c;
+            margin-top: 30px;
+        }
 
-header{
-    text-align:center;
-    padding:40px;
-    background:rgba(0,0,0,0.4);
-}
+        .container {
+            padding: 20px;
+            max-width: 900px;
+            margin: auto;
+            background: rgba(255,255,255,0.9);
+            border-radius: 10px;
+        }
 
-.container{
-    padding:20px;
-    background:rgba(0,0,0,0.6);
-    margin:20px;
-    border-radius:10px;
-}
+        p {
+            text-align: justify;
+        }
 
-img{
-    width:100%;
-    max-width:500px;
-    margin-top:10px;
-    border-radius:10px;
-}
+        .gallery img {
+            width: 200px;
+            margin: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
 
-.upload-box{
-    margin-top:20px;
-    padding:20px;
-    background:rgba(255,255,255,0.2);
-    border-radius:10px;
-}
-</style>
+        input {
+            margin: 15px 0;
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
-<h1>Judul: Wisata Bagarurung</h1>
-</header>
+<h1>Wisata Bukit Bagarurung</h1>
 
 <div class="container">
+
 <p>
-Bukit Bagarurung merupakan salah satu destinasi wisata alam yang berada di Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Provinsi Jawa Barat, Indonesia. Kawasan ini berupa perbukitan dengan hutan pinus yang tumbuh cukup rapat dan udara yang relatif sejuk karena berada di dataran tinggi. Dari puncaknya dapat terlihat Waduk Darma serta siluet Gunung Ciremai.
-
-Secara sejarah, bukit ini dipercaya pernah digunakan pada masa kolonial Belanda sebagai titik pengamatan. Kini menjadi wisata alam dan bumi perkemahan.
-
-<b>ADIKSIMBA:</b><br>
-Apa: Bukit wisata alam dan sejarah.<br>
-Di mana: Desa Sakerta Timur, Darma, Kuningan, Jawa Barat.<br>
-Kapan: Era kolonial hingga sekarang.<br>
-Siapa: Dahulu Belanda, sekarang masyarakat dan wisatawan.<br>
-Mengapa: Letaknya strategis dan panoramanya indah.<br>
-Bagaimana: Menuju desa lalu jalur menanjak ke hutan pinus.
+Bukit Bagarurung merupakan salah satu destinasi wisata alam yang berada di Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Provinsi Jawa Barat, Indonesia. Kawasan ini berupa perbukitan dengan hutan pinus yang tumbuh cukup rapat dan udara yang relatif sejuk karena berada di dataran tinggi. Dari puncaknya, pengunjung dapat melihat bentang alam yang luas, termasuk area perbukitan sekitar Darma dan pada cuaca cerah dapat terlihat Waduk Darma serta siluet Gunung Ciremai di kejauhan.
 </p>
 
-<div class="upload-box">
-<h2>Tambahkan Foto</h2>
-<input type="file" id="fotoInput" accept="image/*">
-<div id="preview"></div>
-</div>
+<p>
+Secara sejarah, bukit ini dipercaya oleh masyarakat setempat pernah digunakan pada masa kolonial Belanda sebagai titik pengamatan. Lokasinya yang tinggi dan terbuka menjadikannya strategis untuk memantau wilayah sekitar. Di area puncak masih terdapat sisa struktur bangunan lama yang diyakini sebagai peninggalan fungsi tersebut. Setelah masa penjajahan berakhir, kawasan ini kembali menjadi hutan alami dan tidak lagi digunakan untuk kepentingan militer atau pengawasan.
+</p>
+
+<p>
+Perkembangan fungsi bukit terjadi ketika masyarakat Desa Sakerta Timur mulai melihat potensi alamnya sebagai tempat rekreasi. Keindahan panorama, suasana yang tenang, dan lingkungan yang masih alami membuat kawasan ini mulai dikunjungi warga sekitar. Seiring waktu, Bukit Bagarurung dikenal sebagai lokasi wisata alam dan bumi perkemahan yang dimanfaatkan untuk kegiatan berkemah, fotografi, serta aktivitas luar ruang lainnya.
+</p>
+
+<h3>Unsur ADIKSIMBA</h3>
+
+<p><b>Apa:</b> Bukit Bagarurung sebagai tempat wisata alam yang memiliki panorama perbukitan, hutan pinus, serta nilai sejarah dari sisa bangunan lama di puncaknya.</p>
+<p><b>Di mana:</b> Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Provinsi Jawa Barat, Indonesia.</p>
+<p><b>Kapan:</b> Pada masa kolonial Belanda sebagai titik pengamatan, dan saat ini dapat dikunjungi sepanjang tahun.</p>
+<p><b>Siapa:</b> Pada masa kolonial dimanfaatkan oleh pihak Belanda, saat ini dikelola masyarakat setempat dan dikunjungi wisatawan.</p>
+<p><b>Mengapa:</b> Karena letaknya strategis di ketinggian dan memiliki pemandangan indah serta udara sejuk.</p>
+<p><b>Bagaimana:</b> Menuju Desa Sakerta Timur lalu melalui jalur menanjak menuju kawasan hutan pinus hingga sampai di puncak.</p>
+
+<h3>Tambah Foto</h3>
+<input type="file" id="photoInput" multiple accept="image/*">
+<div class="gallery" id="gallery"></div>
 
 </div>
 
 <script>
-document.getElementById('fotoInput').addEventListener('change', function(event) {
-    const preview = document.getElementById('preview');
-    preview.innerHTML = "";
-    const file = event.target.files[0];
-    if(file){
+document.getElementById("photoInput").addEventListener("change", function(event) {
+    const gallery = document.getElementById("gallery");
+    gallery.innerHTML = "";
+
+    Array.from(event.target.files).forEach(file => {
         const reader = new FileReader();
-        reader.onload = function(e){
+        reader.onload = function(e) {
             const img = document.createElement("img");
             img.src = e.target.result;
-            preview.appendChild(img);
-        }
+            gallery.appendChild(img);
+        };
         reader.readAsDataURL(file);
-    }
+    });
 });
 </script>
 
