@@ -1,88 +1,89 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tugas Bahasa Indonesia</title>
+  <title>Bukit Bagarurung</title>
   <style>
     body {
-      margin: 0;
-      padding: 0;
       background: linear-gradient(to bottom, #e8f5e9, #ffffff);
       font-family: Arial, sans-serif;
-      text-align: center;
-      overflow-x: hidden;
+      margin: 40px;
+      line-height: 1.8;
+      color: #1b5e20;
     }
 
     h1 {
-      color: #1b5e20;
-      font-size: 40px;
-      margin-top: 40px;
+      text-align: center;
+      font-size: 36px;
     }
 
     p {
-      font-size: 22px;
-      width: 80%;
-      margin: auto;
-      color: #2e7d32;
+      font-size: 20px;
+      text-align: justify;
     }
 
     .kelompok {
       margin-top: 40px;
-      font-size: 20px;
-      color: #1b5e20;
+      font-size: 18px;
     }
 
-    /* Daun */
-    .leaf {
+    .daun {
       position: fixed;
       top: -50px;
-      width: 30px;
-      height: 30px;
-      background: green;
-      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-      opacity: 0.7;
-      animation: fall linear infinite;
+      font-size: 24px;
+      animation: jatuh linear infinite;
     }
 
-    @keyframes fall {
+    @keyframes jatuh {
       to {
-        transform: translateY(110vh) rotate(360deg);
+        transform: translateY(110vh);
       }
     }
   </style>
 </head>
 <body>
 
-  <h1>Tugas Bahasa Indonesia</h1>
+<h1>Bukit Bagarurung</h1>
 
-  <p>
-    Ini adalah website tugas Bahasa Indonesia kami.
-    Website ini dibuat menggunakan HTML sederhana dan
-    sudah dilengkapi dengan tampilan hijau serta efek daun berjatuhan.
-  </p>
+<p>
+Bukit Bagarurung merupakan salah satu destinasi wisata alam yang berada di Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Provinsi Jawa Barat, Indonesia. Kawasan ini berupa perbukitan dengan hutan pinus yang tumbuh cukup rapat dan udara yang relatif sejuk karena berada di dataran tinggi. Dari puncaknya, pengunjung dapat melihat bentang alam yang luas, termasuk area perbukitan sekitar Darma dan pada cuaca cerah dapat terlihat Waduk Darma serta siluet Gunung Ciremai di kejauhan.
+</p>
 
-  <div class="kelompok">
-    <h2>Nama Kelompok:</h2>
-    <p>Fawaz</p>
-    <p>Dika</p>
-    <p>Rama</p>
-    <p>Alka</p>
-  </div>
+<p>
+Secara sejarah, bukit ini dipercaya oleh masyarakat setempat pernah digunakan pada masa kolonial Belanda sebagai titik pengamatan. Lokasinya yang tinggi dan terbuka menjadikannya strategis untuk memantau wilayah sekitar. Di area puncak masih terdapat sisa struktur bangunan lama yang diyakini sebagai peninggalan fungsi tersebut. Setelah masa penjajahan berakhir, kawasan ini kembali menjadi hutan alami dan tidak lagi digunakan untuk kepentingan militer atau pengawasan.
+</p>
 
-  <script>
-    function createLeaf() {
-      const leaf = document.createElement("div");
-      leaf.classList.add("leaf");
-      leaf.style.left = Math.random() * window.innerWidth + "px";
-      leaf.style.animationDuration = (3 + Math.random() * 5) + "s";
-      document.body.appendChild(leaf);
+<p>
+Perkembangan fungsi bukit terjadi ketika masyarakat Desa Sakerta Timur mulai melihat potensi alamnya sebagai tempat rekreasi. Keindahan panorama, suasana yang tenang, dan lingkungan yang masih alami membuat kawasan ini mulai dikunjungi warga sekitar. Seiring waktu, Bukit Bagarurung dikenal sebagai lokasi wisata alam dan bumi perkemahan yang dimanfaatkan untuk kegiatan berkemah, fotografi, serta aktivitas luar ruang lainnya.
+</p>
 
-      setTimeout(() => {
-        leaf.remove();
-      }, 8000);
-    }
+<p>
+Jika diuraikan berdasarkan unsur ADIKSIMBA, penjelasannya mencakup enam bagian penting: Apa, Di mana, Kapan, Siapa, Mengapa, dan Bagaimana. Seluruh unsur tersebut telah tercakup secara lengkap dalam uraian di atas.
+</p>
 
-    setInterval(createLeaf, 500);
-  </script>
+<div class="kelompok">
+<h2>Nama Kelompok:</h2>
+<p>Fawaz</p>
+<p>Dika</p>
+<p>Rama</p>
+<p>Alka</p>
+</div>
+
+<script>
+function buatDaun() {
+  const daun = document.createElement("div");
+  daun.classList.add("daun");
+  daun.innerHTML = "🍃";
+  daun.style.left = Math.random() * window.innerWidth + "px";
+  daun.style.animationDuration = (3 + Math.random() * 5) + "s";
+  document.body.appendChild(daun);
+
+  setTimeout(() => {
+    daun.remove();
+  }, 8000);
+}
+
+setInterval(buatDaun, 500);
+</script>
 
 </body>
 </html>
