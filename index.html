@@ -4,44 +4,70 @@
   <title>Bukit Bagarurung</title>
   <style>
     body {
-      background: linear-gradient(to bottom, #e8f5e9, #ffffff);
+      margin: 0;
       font-family: Arial, sans-serif;
-      margin: 40px;
-      line-height: 1.8;
+      background: linear-gradient(to bottom, #d0f0d8, #ffffff);
       color: #1b5e20;
+      font-weight: bold;
+      overflow-x: hidden;
     }
 
-    h1 {
+    header {
       text-align: center;
-      font-size: 38px;
+      padding: 40px 20px;
+      font-size: 45px;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      animation: fadeDown 1s ease-out;
+    }
+
+    section {
+      width: 85%;
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      animation: fadeUp 1s ease;
     }
 
     p {
-      font-size: 20px;
+      font-size: 22px;
+      line-height: 1.8;
       text-align: justify;
     }
 
     h2 {
       margin-top: 30px;
-    }
-
-    #uploadSection {
-      display: none;
-      margin-top: 30px;
-      padding: 20px;
-      background: #f1f8e9;
-      border-radius: 10px;
+      font-size: 28px;
+      text-align: center;
     }
 
     img {
-      max-width: 250px;
-      margin: 10px;
-      border-radius: 10px;
+      width: 750px;
+      max-width: 95%;
+      display: block;
+      margin: 30px auto;
+      border-radius: 20px;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    }
+
+    img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.4);
     }
 
     .kelompok {
-      margin-top: 40px;
-      font-size: 18px;
+      text-align: center;
+      font-size: 22px;
+      margin-top: 20px;
+    }
+
+    .kelompok p {
+      margin: 8px 0;
     }
 
     .daun {
@@ -57,87 +83,70 @@
       }
     }
 
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background: #2e7d32;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
+    @keyframes fadeUp {
+      from {opacity: 0; transform: translateY(40px);}
+      to {opacity: 1; transform: translateY(0);}
     }
 
-    button:hover {
+    @keyframes fadeDown {
+      from {opacity: 0; transform: translateY(-40px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
       background: #1b5e20;
+      color: white;
+      margin-top: 50px;
     }
   </style>
 </head>
 <body>
 
-<h1>Bukit Bagarurung</h1>
+<header>
+  Bukit Bagarurung
+</header>
 
-<p>
-Bukit Bagarurung merupakan salah satu destinasi wisata alam yang berada di Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Provinsi Jawa Barat, Indonesia. Kawasan ini berupa perbukitan dengan hutan pinus yang tumbuh cukup rapat serta memiliki udara yang relatif sejuk karena berada di dataran tinggi. Dari puncaknya, pengunjung dapat melihat bentang alam yang luas, termasuk perbukitan di sekitar Darma. Pada cuaca cerah, Waduk Darma dan siluet Gunung Ciremai dapat terlihat dari kejauhan.
-</p>
+<section>
+  <p>
+  Bukit Bagarurung merupakan salah satu destinasi wisata alam yang berada di Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Provinsi Jawa Barat, Indonesia. Kawasan ini berupa perbukitan dengan hutan pinus yang tumbuh cukup rapat serta memiliki udara yang relatif sejuk karena berada di dataran tinggi. Dari puncaknya, pengunjung dapat melihat bentang alam yang luas, termasuk perbukitan di sekitar Darma. Pada cuaca cerah, Waduk Darma dan siluet Gunung Ciremai dapat terlihat dari kejauhan.
+  </p>
 
-<p>
-Secara sejarah, bukit ini dipercaya pernah digunakan pada masa kolonial Belanda sebagai titik pengamatan. Letaknya yang tinggi dan terbuka menjadikannya strategis untuk memantau wilayah sekitar. Di puncaknya masih terdapat sisa struktur bangunan lama yang diyakini sebagai peninggalan masa tersebut. Setelah masa penjajahan berakhir, kawasan ini kembali menjadi hutan alami dan tidak lagi digunakan untuk kepentingan militer.
-</p>
+  <p>
+  Secara sejarah, bukit ini dipercaya pernah digunakan pada masa kolonial Belanda sebagai titik pengamatan. Letaknya yang tinggi dan terbuka menjadikannya strategis untuk memantau wilayah sekitar. Di puncaknya masih terdapat sisa struktur bangunan lama yang diyakini sebagai peninggalan masa tersebut. Setelah masa penjajahan berakhir, kawasan ini kembali menjadi hutan alami dan tidak lagi digunakan untuk kepentingan militer.
+  </p>
+</section>
 
-<h2>Penjelasan Berdasarkan ADIKSIMBA</h2>
+<section>
+  <h2>Penjelasan ADIKSIMBA</h2>
 
-<p><strong>Apa:</strong> Bukit Bagarurung adalah destinasi wisata alam yang memiliki panorama perbukitan, hutan pinus, serta nilai sejarah dari sisa bangunan lama.</p>
+  <p><strong>Apa:</strong> Destinasi wisata alam dengan panorama perbukitan dan nilai sejarah.</p>
+  <p><strong>Di mana:</strong> Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan.</p>
+  <p><strong>Kapan:</strong> Digunakan sejak masa kolonial dan kini menjadi tempat wisata.</p>
+  <p><strong>Siapa:</strong> Dulu dimanfaatkan Belanda, sekarang dikelola masyarakat.</p>
+  <p><strong>Mengapa:</strong> Karena lokasi strategis dan pemandangan indah.</p>
+  <p><strong>Bagaimana:</strong> Melalui jalur menanjak menuju kawasan hutan pinus.</p>
+</section>
 
-<p><strong>Di mana:</strong> Terletak di Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Provinsi Jawa Barat, Indonesia.</p>
+<section>
+  <h2>Galeri Foto</h2>
+  <img src="unnamed (2).webp">
+</section>
 
-<p><strong>Kapan:</strong> Pernah digunakan pada masa kolonial Belanda sebagai titik pengamatan. Saat ini dapat dikunjungi sepanjang tahun dan ramai pada akhir pekan.</p>
+<section class="kelompok">
+  <h2>Nama Kelompok</h2>
+  <p>Fawaz</p>
+  <p>Dika</p>
+  <p>Rama</p>
+  <p>Alka</p>
+</section>
 
-<p><strong>Siapa:</strong> Pada masa kolonial dimanfaatkan oleh pihak Belanda. Saat ini dikelola masyarakat setempat dan dikunjungi wisatawan lokal serta pelajar.</p>
-
-<p><strong>Mengapa:</strong> Karena lokasinya strategis di ketinggian serta memiliki panorama indah, udara sejuk, dan suasana alam yang tenang.</p>
-
-<p><strong>Bagaimana:</strong> Dapat dicapai dengan menuju Desa Sakerta Timur, lalu melanjutkan perjalanan melalui jalur menanjak menuju kawasan hutan pinus hingga sampai di puncak.</p>
-
-<button onclick="aksesUpload()">Akses Upload Foto</button>
-
-<div id="uploadSection">
-  <h2>Upload Foto (Akses Khusus)</h2>
-  <input type="file" id="fotoInput" multiple accept="image/*">
-  <div id="preview"></div>
-</div>
-
-<div class="kelompok">
-<h2>Nama Kelompok:</h2>
-<p>Fawaz</p>
-<p>Dika</p>
-<p>Rama</p>
-<p>Alka</p>
-</div>
+<footer>
+  © 2026 Bukit Bagarurung Project
+</footer>
 
 <script>
-function aksesUpload() {
-  let password = prompt("Masukkan password:");
-  if(password === "142004") {
-    document.getElementById("uploadSection").style.display = "block";
-  } else {
-    alert("Password salah");
-  }
-}
-
-document.getElementById("fotoInput").addEventListener("change", function(event) {
-  const preview = document.getElementById("preview");
-  preview.innerHTML = "";
-  Array.from(event.target.files).forEach(file => {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      const img = document.createElement("img");
-      img.src = e.target.result;
-      preview.appendChild(img);
-    }
-    reader.readAsDataURL(file);
-  });
-});
-
 function buatDaun() {
   const daun = document.createElement("div");
   daun.classList.add("daun");
@@ -147,15 +156,8 @@ function buatDaun() {
   document.body.appendChild(daun);
   setTimeout(() => daun.remove(), 8000);
 }
-
-setInterval(buatDaun, 500);
+setInterval(buatDaun, 400);
 </script>
-<!-- GALERI FOTO OTOMATIS -->
-<h2 style="margin-top:40px;">Galeri Foto</h2>
 
-<div style="text-align:center; margin-top:20px;">
-  <img src="unnamed (2).webp" 
-       style="width:600px; max-width:90%; border-radius:15px; box-shadow:0 8px 20px rgba(0,0,0,0.2);">
-</div>
 </body>
 </html>
