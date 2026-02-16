@@ -2,35 +2,70 @@
 <html>
 <head>
   <title>Bukit Bagarurung</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
+      font-weight: bold;
       background: linear-gradient(to bottom, #d0f0d8, #ffffff);
       color: #1b5e20;
-      font-weight: bold;
+      transition: background 0.5s, color 0.5s;
       overflow-x: hidden;
     }
 
+    body.dark {
+      background: linear-gradient(to bottom, #0f2027, #203a43);
+      color: #ffffff;
+    }
+
     header {
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
       text-align: center;
-      padding: 40px 20px;
-      font-size: 45px;
-      background: rgba(255,255,255,0.6);
-      backdrop-filter: blur(5px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      animation: fadeDown 1s ease-out;
+      background-image: url("unnamed (2).webp");
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      color: white;
+      text-shadow: 0 5px 20px rgba(0,0,0,0.8);
+    }
+
+    .toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background: #1b5e20;
+      color: white;
+      border-radius: 30px;
+      cursor: pointer;
+      z-index: 1000;
     }
 
     section {
       width: 85%;
       max-width: 1000px;
-      margin: 40px auto;
+      margin: 60px auto;
       padding: 30px;
-      background: white;
+      background: rgba(255,255,255,0.9);
       border-radius: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-      animation: fadeUp 1s ease;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+
+    body.dark section {
+      background: rgba(0,0,0,0.6);
+    }
+
+    section.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     p {
@@ -40,9 +75,8 @@
     }
 
     h2 {
-      margin-top: 30px;
-      font-size: 28px;
       text-align: center;
+      font-size: 28px;
     }
 
     img {
@@ -51,23 +85,25 @@
       display: block;
       margin: 30px auto;
       border-radius: 20px;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+      transition: transform 0.4s ease;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
     }
 
     img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 20px 45px rgba(0,0,0,0.4);
+      transform: scale(1.07);
     }
 
     .kelompok {
       text-align: center;
       font-size: 22px;
-      margin-top: 20px;
     }
 
-    .kelompok p {
-      margin: 8px 0;
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #1b5e20;
+      color: white;
+      margin-top: 60px;
     }
 
     .daun {
@@ -78,31 +114,13 @@
     }
 
     @keyframes jatuh {
-      to {
-        transform: translateY(110vh);
-      }
-    }
-
-    @keyframes fadeUp {
-      from {opacity: 0; transform: translateY(40px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-
-    @keyframes fadeDown {
-      from {opacity: 0; transform: translateY(-40px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #1b5e20;
-      color: white;
-      margin-top: 50px;
+      to { transform: translateY(110vh); }
     }
   </style>
 </head>
 <body>
+
+<div class="toggle" onclick="toggleMode()">Dark Mode</div>
 
 <header>
   Bukit Bagarurung
@@ -110,23 +128,22 @@
 
 <section>
   <p>
-  Bukit Bagarurung merupakan salah satu destinasi wisata alam yang berada di Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Provinsi Jawa Barat, Indonesia. Kawasan ini berupa perbukitan dengan hutan pinus yang tumbuh cukup rapat serta memiliki udara yang relatif sejuk karena berada di dataran tinggi. Dari puncaknya, pengunjung dapat melihat bentang alam yang luas, termasuk perbukitan di sekitar Darma. Pada cuaca cerah, Waduk Darma dan siluet Gunung Ciremai dapat terlihat dari kejauhan.
+  Bukit Bagarurung merupakan salah satu destinasi wisata alam di Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Jawa Barat. Kawasan ini berupa perbukitan dengan hutan pinus yang tumbuh rapat dan udara yang sejuk karena berada di dataran tinggi. Dari puncaknya, pengunjung dapat melihat bentang alam luas, termasuk Waduk Darma dan siluet Gunung Ciremai.
   </p>
 
   <p>
-  Secara sejarah, bukit ini dipercaya pernah digunakan pada masa kolonial Belanda sebagai titik pengamatan. Letaknya yang tinggi dan terbuka menjadikannya strategis untuk memantau wilayah sekitar. Di puncaknya masih terdapat sisa struktur bangunan lama yang diyakini sebagai peninggalan masa tersebut. Setelah masa penjajahan berakhir, kawasan ini kembali menjadi hutan alami dan tidak lagi digunakan untuk kepentingan militer.
+  Secara sejarah, bukit ini dipercaya pernah digunakan pada masa kolonial Belanda sebagai titik pengamatan. Letaknya yang tinggi menjadikannya strategis untuk memantau wilayah sekitar. Kini kawasan tersebut menjadi objek wisata alam yang menarik.
   </p>
 </section>
 
 <section>
   <h2>Penjelasan ADIKSIMBA</h2>
-
-  <p><strong>Apa:</strong> Destinasi wisata alam dengan panorama perbukitan dan nilai sejarah.</p>
-  <p><strong>Di mana:</strong> Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan.</p>
-  <p><strong>Kapan:</strong> Digunakan sejak masa kolonial dan kini menjadi tempat wisata.</p>
-  <p><strong>Siapa:</strong> Dulu dimanfaatkan Belanda, sekarang dikelola masyarakat.</p>
-  <p><strong>Mengapa:</strong> Karena lokasi strategis dan pemandangan indah.</p>
-  <p><strong>Bagaimana:</strong> Melalui jalur menanjak menuju kawasan hutan pinus.</p>
+  <p>Apa: Destinasi wisata alam dengan panorama indah dan nilai sejarah.</p>
+  <p>Di mana: Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan.</p>
+  <p>Kapan: Sejak masa kolonial hingga sekarang.</p>
+  <p>Siapa: Dahulu digunakan Belanda, kini dikelola masyarakat.</p>
+  <p>Mengapa: Karena lokasi tinggi dengan pemandangan luas.</p>
+  <p>Bagaimana: Melalui jalur menanjak menuju hutan pinus.</p>
 </section>
 
 <section>
@@ -147,6 +164,10 @@
 </footer>
 
 <script>
+function toggleMode(){
+  document.body.classList.toggle("dark");
+}
+
 function buatDaun() {
   const daun = document.createElement("div");
   daun.classList.add("daun");
@@ -157,6 +178,16 @@ function buatDaun() {
   setTimeout(() => daun.remove(), 8000);
 }
 setInterval(buatDaun, 400);
+
+const sections = document.querySelectorAll("section");
+window.addEventListener("scroll", () => {
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if(top < window.innerHeight - 100){
+      sec.classList.add("show");
+    }
+  });
+});
 </script>
 
 </body>
