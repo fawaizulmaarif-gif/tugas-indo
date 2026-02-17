@@ -169,12 +169,13 @@
             100% { transform: rotateX(0deg) rotateY(0deg); }
         }
 
+        /* ===== ADMIN PANEL UPDATE ===== */
         .admin-panel {
             background: rgba(255,255,255,0.95);
             padding: 30px;
             border-radius: 15px;
             margin: 20px auto;
-            max-width: 500px;
+            max-width: 600px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
@@ -184,9 +185,14 @@
 
         .admin-panel h2 {
             margin-top: 0;
+            color: #1b5e20;
         }
 
-        .admin-panel input, .admin-panel button {
+        body.dark .admin-panel h2 {
+            color: #a5d6a7;
+        }
+
+        .admin-panel input, .admin-panel button, .admin-panel textarea, .admin-panel select {
             width: 100%;
             padding: 12px;
             margin: 10px 0;
@@ -196,16 +202,31 @@
             box-sizing: border-box;
         }
 
+        .admin-panel textarea {
+            min-height: 150px;
+            font-family: inherit;
+        }
+
         .admin-panel button {
             background: #1b5e20;
             color: white;
             border: none;
             cursor: pointer;
             font-weight: bold;
+            transition: background 0.3s;
         }
 
         .admin-panel button:hover {
             background: #2e7d32;
+        }
+
+        .admin-panel .logout-btn {
+            background: #f44336;
+            margin-top: 20px;
+        }
+
+        .admin-panel .logout-btn:hover {
+            background: #d32f2f;
         }
 
         .error-msg {
@@ -214,62 +235,48 @@
             margin: 5px 0;
         }
 
+        .success-msg {
+            color: #4caf50;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
         .hidden {
             display: none;
         }
 
-        .secret-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .secret-card {
-            background: linear-gradient(135deg, #1b5e20, #2e7d32);
+        .admin-badge {
+            background: #ff6b6b;
             color: white;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .secret-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-        }
-
-        body.dark .secret-card {
-            background: linear-gradient(135deg, #0f2027, #203a43);
-        }
-
-        .secret-card h3 {
-            margin: 0 0 10px 0;
-            font-size: 18px;
-        }
-
-        .secret-card p {
-            margin: 0;
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .easter-egg {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.9);
-            color: #ffd700;
-            padding: 30px;
+            padding: 5px 10px;
             border-radius: 20px;
+            font-size: 12px;
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        /* Counter pengunjung */
+        .visitor-counter {
             text-align: center;
-            z-index: 3000;
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50px;
+            font-size: 16px;
+        }
+
+        .visitor-counter span {
+            font-weight: bold;
+            color: #1b5e20;
             font-size: 24px;
-            border: 3px solid #ffd700;
-            box-shadow: 0 0 50px rgba(255,215,0,0.5);
+            margin-left: 10px;
+        }
+
+        body.dark .visitor-counter span {
+            color: #a5d6a7;
         }
 
         .kelompok {
@@ -342,19 +349,6 @@
             to { transform: translateY(110vh); }
         }
 
-        .admin-badge {
-            background: #ff6b6b;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            z-index: 1000;
-            cursor: pointer;
-        }
-
         .modal {
             display: none;
             position: fixed;
@@ -390,7 +384,6 @@
             cursor: pointer;
         }
 
-        /* Container buat Spotify embed */
         #spotifyContainer {
             margin-top: 20px;
             border-radius: 12px;
@@ -410,60 +403,74 @@
 <button class="music-btn" onclick="toggleSpotify()">🎵 Putar Hindia (Random)</button>
 <div class="admin-badge" onclick="showAdminPanel()">🔑 Admin Panel</div>
 
+<!-- Visitor Counter -->
+<div class="visitor-counter">
+    👥 Pengunjung: <span id="visitorCount">0</span>
+</div>
+
 <header>
     <h1>Bukit Bagarurung</h1>
 </header>
 
 <div class="container">
     <div class="text-section">
-        <h2>🏞️ Deskripsi</h2>
-        <p>Sejarah Bukit Bagarurung berawal sebagai kawasan hutan alami di wilayah Darma, Kabupaten Kuningan, Provinsi Jawa Barat. Area ini merupakan bagian dari bentang alam perbukitan yang mengelilingi kawasan Waduk Darma dan lereng Gunung Ciremai.</p>
-        <p>Pada masa kolonial Hindia Belanda, puncak bukit ini dimanfaatkan sebagai titik peneropongan atau pengamatan wilayah. Letaknya yang tinggi dan terbuka menjadikannya strategis untuk memantau area sekitar. Sisa-sisa struktur lama dilaporkan pernah ditemukan di area puncak sebagai jejak fungsi tersebut.</p>
-        <p>Setelah kemerdekaan Indonesia, kawasan ini kembali berfungsi sebagai hutan biasa dan dikelola dalam sistem kehutanan negara, termasuk dalam pengelolaan Perhutani. Selama beberapa dekade tidak ada pengembangan khusus sebagai destinasi wisata.</p>
-        <p>Memasuki awal dekade 2020-an, potensi panoramanya mulai dikenal masyarakat. Dari puncaknya terlihat jelas Waduk Darma dan Gunung Ciremai, sehingga kawasan ini kemudian dikembangkan secara bertahap menjadi lokasi wisata alam dan camping ground oleh masyarakat setempat. Hingga sekarang, Bukit Bagarurung berada dalam tahap pengembangan sebagai destinasi wisata alam yang terus ditata fasilitas dan aksesnya.</p>
+        <h2>🏞 Deskripsi</h2>
+        <div id="deskripsiText">
+            <p>Sejarah Bukit Bagarurung berawal sebagai kawasan hutan alami di wilayah Darma, Kabupaten Kuningan, Provinsi Jawa Barat. Area ini merupakan bagian dari bentang alam perbukitan yang mengelilingi kawasan Waduk Darma dan lereng Gunung Ciremai.</p>
+            <p>Pada masa kolonial Hindia Belanda, puncak bukit ini dimanfaatkan sebagai titik peneropongan atau pengamatan wilayah. Letaknya yang tinggi dan terbuka menjadikannya strategis untuk memantau area sekitar. Sisa-sisa struktur lama dilaporkan pernah ditemukan di area puncak sebagai jejak fungsi tersebut.</p>
+            <p>Setelah kemerdekaan Indonesia, kawasan ini kembali berfungsi sebagai hutan biasa dan dikelola dalam sistem kehutanan negara, termasuk dalam pengelolaan Perhutani. Selama beberapa dekade tidak ada pengembangan khusus sebagai destinasi wisata.</p>
+            <p>Memasuki awal dekade 2020-an, potensi panoramanya mulai dikenal masyarakat. Dari puncaknya terlihat jelas Waduk Darma dan Gunung Ciremai, sehingga kawasan ini kemudian dikembangkan secara bertahap menjadi lokasi wisata alam dan camping ground oleh masyarakat setempat. Hingga sekarang, Bukit Bagarurung berada dalam tahap pengembangan sebagai destinasi wisata alam yang terus ditata fasilitas dan aksesnya.</p>
+        </div>
     </div>
 
     <div class="photo-section">
-        <h2>📸 Galeri Foto</h2>
+        <h2> Galeri Foto</h2>
         <div class="photo-grid" id="photoGrid">
             <!-- Foto akan ditampilkan di sini via JavaScript -->
         </div>
-        <!-- Spotify container akan muncul di sini -->
         <div id="spotifyContainer"></div>
     </div>
 </div>
 
-<!-- Admin Panel dengan Fitur Rahasia -->
+<!-- Admin Panel UPDATE -->
 <div id="adminPanel" class="admin-panel hidden">
-    <h2>🔐 Admin Login</h2>
+    <h2>akses admin</h2>
+    
     <div id="loginForm">
         <input type="password" id="password" placeholder="Masukkan password admin" autocomplete="off">
         <button onclick="checkPassword()">Login</button>
         <div id="loginError" class="error-msg"></div>
     </div>
 
-    <div id="secretFeatures" class="hidden">
-        <h2>🎯 Fitur Rahasia</h2>
-        <div class="secret-features">
-            <div class="secret-card" onclick="showGradientPicker()">
-                <h3>🎨 Ganti Background</h3>
-                <p>Klik pilih warna gradient!</p>
-            </div>
-            <div class="secret-card" onclick="triggerEasterEgg()">
-                <h3>🥚 Easter Egg</h3>
-                <p>Klik untuk pesan rahasia!</p>
-            </div>
-            <div class="secret-card" onclick="showJoke()">
-                <h3>😂 Joke Generator</h3>
-                <p>Klik untuk ketawa!</p>
-            </div>
-        </div>
-        <button onclick="logout()" style="background: #f44336; margin-top: 20px;">Logout</button>
+    <div id="adminFeatures" class="hidden">
+        <h3>✏️ Edit Deskripsi</h3>
+        <textarea id="deskripsiEditor" placeholder="Edit teks deskripsi di sini..."></textarea>
+        <button onclick="saveDeskripsi()">Simpan Deskripsi</button>
+        
+        <h3>🎨 Ganti Background</h3>
+        <select id="bgGradient">
+            <option value="linear-gradient(135deg, #a8e6cf, #d4ed9a)">Hijau Segar</option>
+            <option value="linear-gradient(135deg, #89f7fe, #66a6ff)">Biru Laut</option>
+            <option value="linear-gradient(135deg, #ff9a9e, #fad0c4)">Sunset</option>
+            <option value="linear-gradient(135deg, #a18cd1, #fbc2eb)">Ungu Malam</option>
+            <option value="linear-gradient(135deg, #f093fb, #f5576c)">Orange Semangat</option>
+            <option value="linear-gradient(135deg, #134e5e, #71b280)">Hijau Hutan</option>
+            <option value="linear-gradient(135deg, #ff0000, #ffffff)">Merah Putih</option>
+            <option value="linear-gradient(135deg, #f9d423, #4e54c8)">Kuning Biru</option>
+        </select>
+        <button onclick="applyBackground()">Terapkan Background</button>
+        
+        <h3> Statistik Pengunjung</h3>
+        <p>Total pengunjung: <strong id="adminVisitorCount">0</strong></p>
+        <button onclick="resetVisitorCount()">Reset Counter</button>
+        
+        <button class="logout-btn" onclick="logout()">Logout</button>
+        <div id="adminMessage" class="success-msg"></div>
     </div>
 </div>
 
 <div class="kelompok">
-    <h2>👥 Nama Kelompok</h2>
+    <h2> anggota Kelompok</h2>
     <p>Fawaz</p>
     <p>Dika</p>
     <p>Rama</p>
@@ -483,18 +490,80 @@ let photos = [];
 let daunInterval = null;
 let spotifyVisible = false;
 
-// 🎵 4 LAGU HINDIA DARI SPOTIFY (EMBED LINK)
+// 🎵 4 LAGU HINDIA DARI SPOTIFY
 const spotifyTracks = [
-    'https://open.spotify.com/embed/track/5WOSNVChcadlsCRiqXE45K', // everything u are
-    'https://open.spotify.com/embed/track/2wAiFWjRupWmnDkQcu91MF', // Rumah Ke Rumah
-    'https://open.spotify.com/embed/track/5drW6PGRxkE6MxttzVLNk5', // Secukupnya
-    'https://open.spotify.com/embed/track/1bcIiU5FWRa2IYBqx0bk67'  // Evakuasi
+    'https://open.spotify.com/embed/track/5WOSNVChcadlsCRiqXE45K',
+    'https://open.spotify.com/embed/track/2wAiFWjRupWmnDkQcu91MF',
+    'https://open.spotify.com/embed/track/5drW6PGRxkE6MxttzVLNk5',
+    'https://open.spotify.com/embed/track/1bcIiU5FWRa2IYBqx0bk67'
 ];
 
 const DEFAULT_PHOTOS = [
     'unnamed (2).webp'
 ];
 
+// ==================== VISITOR COUNTER ====================
+function initVisitorCounter() {
+    let count = localStorage.getItem('visitorCount');
+    if (!count) {
+        count = 1;
+    } else {
+        count = parseInt(count) + 1;
+    }
+    localStorage.setItem('visitorCount', count);
+    document.getElementById('visitorCount').textContent = count;
+    document.getElementById('adminVisitorCount').textContent = count;
+}
+
+function resetVisitorCount() {
+    if (sessionStorage.getItem('admin') === 'true') {
+        localStorage.setItem('visitorCount', 1);
+        document.getElementById('visitorCount').textContent = 1;
+        document.getElementById('adminVisitorCount').textContent = 1;
+        showAdminMessage('✅ Counter pengunjung direset!');
+    }
+}
+
+// ==================== DESKRIPSI EDITOR ====================
+function loadDeskripsi() {
+    const saved = localStorage.getItem('deskripsiBag');
+    if (saved) {
+        document.getElementById('deskripsiText').innerHTML = saved;
+    }
+    document.getElementById('deskripsiEditor').value = document.getElementById('deskripsiText').innerHTML;
+}
+
+function saveDeskripsi() {
+    if (sessionStorage.getItem('admin') !== 'true') return;
+    
+    const newDeskripsi = document.getElementById('deskripsiEditor').value;
+    document.getElementById('deskripsiText').innerHTML = newDeskripsi;
+    localStorage.setItem('deskripsiBag', newDeskripsi);
+    showAdminMessage('✅ Deskripsi berhasil disimpan!');
+}
+
+// ==================== BACKGROUND ====================
+function applyBackground() {
+    if (sessionStorage.getItem('admin') !== 'true') return;
+    
+    const selected = document.getElementById('bgGradient').value;
+    document.body.style.background = selected;
+    if (document.body.classList.contains('dark')) {
+        document.body.classList.remove('dark');
+    }
+    showAdminMessage('✅ Background berhasil diubah!');
+}
+
+// ==================== ADMIN MESSAGE ====================
+function showAdminMessage(msg) {
+    const msgEl = document.getElementById('adminMessage');
+    msgEl.textContent = msg;
+    setTimeout(() => {
+        msgEl.textContent = '';
+    }, 3000);
+}
+
+// ==================== FOTO ====================
 function loadPhotos() {
     const saved = localStorage.getItem('bagarurung_photos');
     if (saved) {
@@ -510,7 +579,6 @@ function savePhotos() {
     localStorage.setItem('bagarurung_photos', JSON.stringify(photos));
 }
 
-// ==================== GALERI FOTO + EFEK 3D ====================
 function renderPhotos() {
     const grid = document.getElementById('photoGrid');
     grid.innerHTML = '';
@@ -544,7 +612,6 @@ function handlePhotoClick(event, src) {
     }, 250);
 }
 
-// ==================== MODAL FOTO ====================
 function openModal(src) {
     document.getElementById('modalImage').src = src;
     document.getElementById('myModal').style.display = 'block';
@@ -554,21 +621,19 @@ function closeModal() {
     document.getElementById('myModal').style.display = 'none';
 }
 
-// ==================== SPOTIFY RANDOM HINDIA ====================
+// ==================== SPOTIFY ====================
 function toggleSpotify() {
     const container = document.getElementById('spotifyContainer');
     const btn = document.querySelector('.music-btn');
     
     if (spotifyVisible) {
         container.innerHTML = '';
-        btn.textContent = '🎵 Putar Hindia (Random)';
+        btn.textContent = ' Putar lagu (Random)';
         spotifyVisible = false;
     } else {
-        // Pilih lagu random
         const randomIndex = Math.floor(Math.random() * spotifyTracks.length);
         const trackUrl = spotifyTracks[randomIndex];
         
-        // Buat embed Spotify
         container.innerHTML = `
             <iframe style="border-radius:12px" 
                 src="${trackUrl}?utm_source=generator" 
@@ -581,7 +646,6 @@ function toggleSpotify() {
             </iframe>
         `;
         
-        // Ganti teks tombol sesuai lagu
         const trackNames = ['everything u are', 'Rumah Ke Rumah', 'Secukupnya', 'Evakuasi'];
         btn.textContent = `⏸️ ${trackNames[randomIndex]}`;
         spotifyVisible = true;
@@ -605,123 +669,4 @@ function buatDaun() {
     const emojis = ['🌿', '☘️', '🍀', '🌱', '🍃'];
     daun.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
     daun.style.left = Math.random() * window.innerWidth + 'px';
-    daun.style.animationDuration = (3 + Math.random() * 5) + 's';
-    daun.style.fontSize = (15 + Math.random() * 20) + 'px';
-    document.body.appendChild(daun);
-    setTimeout(() => daun.remove(), 8000);
-}
-
-window.addEventListener('scroll', function() {
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight;
-    const clientHeight = document.documentElement.clientHeight;
-    
-    if (scrollTop + clientHeight >= scrollHeight - 50) {
-        startDaun();
-    }
-});
-
-// ==================== ADMIN PANEL ====================
-function showAdminPanel() {
-    document.getElementById('adminPanel').classList.remove('hidden');
-}
-
-function checkPassword() {
-    const pw = document.getElementById('password').value;
-    if (pw === ADMIN_PASSWORD) {
-        sessionStorage.setItem('admin', 'true');
-        document.getElementById('loginForm').classList.add('hidden');
-        document.getElementById('secretFeatures').classList.remove('hidden');
-        document.getElementById('loginError').innerHTML = '';
-    } else {
-        document.getElementById('loginError').innerHTML = '❌ Password salah!';
-    }
-}
-
-function logout() {
-    sessionStorage.removeItem('admin');
-    document.getElementById('loginForm').classList.remove('hidden');
-    document.getElementById('secretFeatures').classList.add('hidden');
-    document.getElementById('password').value = '';
-    document.getElementById('adminPanel').classList.add('hidden');
-}
-
-// ==================== FITUR RAHASIA ====================
-function showGradientPicker() {
-    const colors = [
-        { name: 'Hijau Segar', value: 'linear-gradient(135deg, #a8e6cf, #d4ed9a)' },
-        { name: 'Biru Laut', value: 'linear-gradient(135deg, #89f7fe, #66a6ff)' },
-        { name: 'Sunset', value: 'linear-gradient(135deg, #ff9a9e, #fad0c4)' },
-        { name: 'Ungu Malam', value: 'linear-gradient(135deg, #a18cd1, #fbc2eb)' },
-        { name: 'Orange Semangat', value: 'linear-gradient(135deg, #f093fb, #f5576c)' },
-        { name: 'Hijau Hutan', value: 'linear-gradient(135deg, #134e5e, #71b280)' },
-        { name: 'Merah Putih', value: 'linear-gradient(135deg, #ff0000, #ffffff)' },
-        { name: 'Kuning Biru', value: 'linear-gradient(135deg, #f9d423, #4e54c8)' }
-    ];
-
-    let message = '🎨 Pilih kombinasi warna gradient:\n\n';
-    colors.forEach((c, index) => {
-        message += `${index + 1}. ${c.name}\n`;
-    });
-    message += '\nMasukkan nomor (1-8):';
-
-    const choice = prompt(message);
-    const idx = parseInt(choice) - 1;
-
-    if (idx >= 0 && idx < colors.length) {
-        document.body.style.background = colors[idx].value;
-        if (document.body.classList.contains('dark')) {
-            document.body.classList.remove('dark');
-        }
-    } else {
-        alert('❌ Pilihan ga valid, coba lagi!');
-    }
-}
-
-function triggerEasterEgg() {
-    const egg = document.createElement('div');
-    egg.className = 'easter-egg';
-    egg.innerHTML = '🥚 SELAMAT! LU NEMU EASTER EGG!<br>Ada apa dengan hari ini? 😹';
-    document.body.appendChild(egg);
-    setTimeout(() => egg.remove(), 3000);
-}
-
-function showJoke() {
-    const jokes = [
-        'Kenapa ayam nyebrang jalan? Karena ga ada gofood di seberang!',
-        'Apa bedanya kamu sama AC? AC dingin, kamu... ah sudahlah.',
-        'Guru: "Kenapa kamu telat?" Murid: "Ada rapat RT, Pak." Guru: "RT?" Murid: "Rapat Terus!"',
-        'Orang apa yang paling tenang? Orang yang lagi di rumah aja.',
-        'Kenapa hp suka panas? Karena kalo dingin namanya kulkas.',
-        'Apa bahasa Jepangnya "saya lapar"? Saya lapaar~',
-        'Kenapa air laut asin? Karena ikan-ikannya pada nangis gara-gara dimakan.',
-        'Apa itu? Bulat, putih, bikin senyum? Tahu bulat!',
-        'Belajar coding itu mudah, tinggal copas katanya.',
-        'Kalo ada listrik mati, berarti lagi diskon.'
-    ];
-    alert(jokes[Math.floor(Math.random() * jokes.length)]);
-}
-
-// ==================== DARK MODE ====================
-function toggleMode() {
-    document.body.classList.toggle('dark');
-}
-
-// ==================== INIT ====================
-loadPhotos();
-
-if (sessionStorage.getItem('admin') === 'true') {
-    document.getElementById('loginForm').classList.add('hidden');
-    document.getElementById('secretFeatures').classList.remove('hidden');
-}
-
-window.onclick = function(event) {
-    const modal = document.getElementById('myModal');
-    if (event.target == modal) {
-        modal.style.display = 'none';
-    }
-}
-</script>
-
-</body>
-</html>
+   
