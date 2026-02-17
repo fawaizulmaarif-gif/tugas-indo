@@ -414,7 +414,7 @@
 
 <div class="container">
     <div class="text-section">
-        <h2>🏞 Deskripsi</h2>
+        <h2>🏞️ Deskripsi</h2>
         <div id="deskripsiText">
             <p>Sejarah Bukit Bagarurung berawal sebagai kawasan hutan alami di wilayah Darma, Kabupaten Kuningan, Provinsi Jawa Barat. Area ini merupakan bagian dari bentang alam perbukitan yang mengelilingi kawasan Waduk Darma dan lereng Gunung Ciremai.</p>
             <p>Pada masa kolonial Hindia Belanda, puncak bukit ini dimanfaatkan sebagai titik peneropongan atau pengamatan wilayah. Letaknya yang tinggi dan terbuka menjadikannya strategis untuk memantau area sekitar. Sisa-sisa struktur lama dilaporkan pernah ditemukan di area puncak sebagai jejak fungsi tersebut.</p>
@@ -424,7 +424,7 @@
     </div>
 
     <div class="photo-section">
-        <h2> Galeri Foto</h2>
+        <h2>📸 Galeri Foto</h2>
         <div class="photo-grid" id="photoGrid">
             <!-- Foto akan ditampilkan di sini via JavaScript -->
         </div>
@@ -434,7 +434,7 @@
 
 <!-- Admin Panel UPDATE -->
 <div id="adminPanel" class="admin-panel hidden">
-    <h2>akses admin</h2>
+    <h2>🔐 Admin Panel</h2>
     
     <div id="loginForm">
         <input type="password" id="password" placeholder="Masukkan password admin" autocomplete="off">
@@ -460,7 +460,7 @@
         </select>
         <button onclick="applyBackground()">Terapkan Background</button>
         
-        <h3> Statistik Pengunjung</h3>
+        <h3>👥 Statistik Pengunjung</h3>
         <p>Total pengunjung: <strong id="adminVisitorCount">0</strong></p>
         <button onclick="resetVisitorCount()">Reset Counter</button>
         
@@ -470,7 +470,7 @@
 </div>
 
 <div class="kelompok">
-    <h2> anggota Kelompok</h2>
+    <h2>👥 Nama Kelompok</h2>
     <p>Fawaz</p>
     <p>Dika</p>
     <p>Rama</p>
@@ -628,7 +628,7 @@ function toggleSpotify() {
     
     if (spotifyVisible) {
         container.innerHTML = '';
-        btn.textContent = ' Putar lagu (Random)';
+        btn.textContent = '🎵 Putar Hindia (Random)';
         spotifyVisible = false;
     } else {
         const randomIndex = Math.floor(Math.random() * spotifyTracks.length);
@@ -669,4 +669,72 @@ function buatDaun() {
     const emojis = ['🌿', '☘️', '🍀', '🌱', '🍃'];
     daun.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
     daun.style.left = Math.random() * window.innerWidth + 'px';
-   
+    daun.style.animationDuration = (3 + Math.random() * 5) + 's';
+    daun.style.fontSize = (15 + Math.random() * 20) + 'px';
+    document.body.appendChild(daun);
+    setTimeout(() => daun.remove(), 8000);
+}
+
+window.addEventListener('scroll', function() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight;
+    const clientHeight = document.documentElement.clientHeight;
+    
+    if (scrollTop + clientHeight >= scrollHeight - 50) {
+        startDaun();
+    }
+});
+
+// ==================== ADMIN PANEL ====================
+function showAdminPanel() {
+    document.getElementById('adminPanel').classList.remove('hidden');
+}
+
+function checkPassword() {
+    const pw = document.getElementById('password').value;
+    if (pw === ADMIN_PASSWORD) {
+        sessionStorage.setItem('admin', 'true');
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('adminFeatures').classList.remove('hidden');
+        document.getElementById('loginError').innerHTML = '';
+        
+        // Isi editor dengan deskripsi terkini
+        document.getElementById('deskripsiEditor').value = document.getElementById('deskripsiText').innerHTML;
+    } else {
+        document.getElementById('loginError').innerHTML = '❌ Password salah!';
+    }
+}
+
+function logout() {
+    sessionStorage.removeItem('admin');
+    document.getElementById('loginForm').classList.remove('hidden');
+    document.getElementById('adminFeatures').classList.add('hidden');
+    document.getElementById('password').value = '';
+    document.getElementById('adminPanel').classList.add('hidden');
+}
+
+// ==================== DARK MODE ====================
+function toggleMode() {
+    document.body.classList.toggle('dark');
+}
+
+// ==================== INIT ====================
+initVisitorCounter();
+loadDeskripsi();
+loadPhotos();
+
+if (sessionStorage.getItem('admin') === 'true') {
+    document.getElementById('loginForm').classList.add('hidden');
+    document.getElementById('adminFeatures').classList.remove('hidden');
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById('myModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+</script>
+
+</body>
+</html>
