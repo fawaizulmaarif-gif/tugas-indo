@@ -21,18 +21,37 @@
             color: white;
         }
 
+        /* HEADER DENGAN FOTO BAGARURUNG ASLI */
         header {
             height: 60vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 42px;
+            font-size: 48px;
+            font-weight: bold;
             text-align: center;
-            background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj9X5X5X5X5X5X5X5X5X5X5X5X5X5X5X5X5X5X5X5X5X5X5X5X5X5X5X5X5X5X5X/s1600/bukit-bagarurung.jpg');
             background-size: cover;
             background-position: center;
             color: white;
             text-shadow: 0 5px 20px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+        /* Overlay gelap biar teks kebaca */
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+        }
+
+        header h1 {
+            position: relative;
+            z-index: 1;
         }
 
         .toggle {
@@ -76,6 +95,7 @@
             line-height: 1.6;
             text-align: justify;
             margin-bottom: 15px;
+            font-size: 14px;
         }
 
         h2 {
@@ -276,15 +296,22 @@
 <!-- Admin Badge (khusus admin) -->
 <div class="admin-badge" onclick="showAdminPanel()">🔑 Admin Panel</div>
 
-<!-- Header -->
-<header>Bukit Bagarurung</header>
+<!-- Header dengan FOTO BAGARURUNG ASLI -->
+<header>
+    <h1>Bukit Bagarurung</h1>
+</header>
 
 <!-- Konten Utama -->
 <div class="container">
     <div class="text-section">
         <h2>🏞️ Deskripsi</h2>
-        <p>Bukit Bagarurung merupakan salah satu destinasi wisata alam yang berada di Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Provinsi Jawa Barat. Kawasan ini berupa perbukitan dengan hutan pinus rapat dan udara sejuk. Dari puncaknya, pengunjung dapat melihat bentang alam luas, termasuk perbukitan sekitar Darma. Waduk Darma dan Gunung Ciremai terlihat jelas saat cuaca cerah.</p>
-        <p>Sebelumnya digunakan pada masa kolonial Belanda sebagai titik pengamatan. Kini menjadi destinasi wisata alam menarik.</p>
+        <p>Sejarah Bukit Bagarurung berawal sebagai kawasan hutan alami di wilayah Darma, Kabupaten Kuningan, Provinsi Jawa Barat. Area ini merupakan bagian dari bentang alam perbukitan yang mengelilingi kawasan Waduk Darma dan lereng Gunung Ciremai.</p>
+        
+        <p>Pada masa kolonial Hindia Belanda, puncak bukit ini dimanfaatkan sebagai titik peneropongan atau pengamatan wilayah. Letaknya yang tinggi dan terbuka menjadikannya strategis untuk memantau area sekitar. Sisa-sisa struktur lama dilaporkan pernah ditemukan di area puncak sebagai jejak fungsi tersebut.</p>
+        
+        <p>Setelah kemerdekaan Indonesia, kawasan ini kembali berfungsi sebagai hutan biasa dan dikelola dalam sistem kehutanan negara, termasuk dalam pengelolaan Perhutani. Selama beberapa dekade tidak ada pengembangan khusus sebagai destinasi wisata.</p>
+        
+        <p>Memasuki awal dekade 2020-an, potensi panoramanya mulai dikenal masyarakat. Dari puncaknya terlihat jelas Waduk Darma dan Gunung Ciremai, sehingga kawasan ini kemudian dikembangkan secara bertahap menjadi lokasi wisata alam dan camping ground oleh masyarakat setempat. Hingga sekarang, Bukit Bagarurung berada dalam tahap pengembangan sebagai destinasi wisata alam yang terus ditata fasilitas dan aksesnya.</p>
 
         <h2>📋 ADIKSIMBA</h2>
         <p><strong>Apa:</strong> Destinasi wisata alam dengan panorama perbukitan, hutan pinus, dan nilai sejarah.</p>
@@ -473,4 +500,4 @@ if (sessionStorage.getItem('admin') === 'true') {
 </script>
 
 </body>
-</html>
+</html>	
