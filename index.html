@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bukit Bagarurung - Wisata Kuningan</title>
     <style>
-        /* ===== SEMUA FITUR TETAP ADA ===== */
+        /* ===== SEMUA FITUR LAMA TETAP ADA ===== */
         body {
             margin: 0;
             font-family: 'Segoe UI', Arial, sans-serif;
@@ -67,6 +67,21 @@
             border: none;
         }
 
+        .music-btn {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            padding: 8px 16px;
+            background: #1b5e20;
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 12px;
+            font-weight: bold;
+            border: none;
+        }
+
         .container {
             display: flex;
             flex-wrap: wrap;
@@ -107,7 +122,6 @@
             color: #a5d6a7;
         }
 
-        /* ===== GALERI FOTO (CUMA 1 FOTO) ===== */
         .photo-grid {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
@@ -120,11 +134,15 @@
             overflow: hidden;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         .photo-item:hover {
             transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
         }
 
         .photo-item img {
@@ -132,10 +150,25 @@
             height: 300px;
             object-fit: cover;
             display: block;
-            cursor: pointer;
+            transition: transform 0.5s;
+            transform-style: preserve-3d;
         }
 
-        /* ===== ADMIN PANEL & FITUR RAHASIA ===== */
+        .photo-item.flip img {
+            transform: rotateY(180deg) scale(1.1);
+        }
+
+        .photo-item.tilt img {
+            animation: tilt3D 0.5s ease;
+        }
+
+        @keyframes tilt3D {
+            0% { transform: rotateX(0deg) rotateY(0deg); }
+            25% { transform: rotateX(10deg) rotateY(10deg); }
+            50% { transform: rotateX(-5deg) rotateY(-5deg); }
+            100% { transform: rotateX(0deg) rotateY(0deg); }
+        }
+
         .admin-panel {
             background: rgba(255,255,255,0.95);
             padding: 30px;
@@ -185,7 +218,6 @@
             display: none;
         }
 
-        /* Fitur Rahasia */
         .secret-features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -224,7 +256,6 @@
             opacity: 0.9;
         }
 
-        /* Easter Egg */
         .easter-egg {
             position: fixed;
             top: 50%;
@@ -300,6 +331,11 @@
             animation: jatuh linear infinite;
             pointer-events: none;
             z-index: 999;
+            display: none;
+        }
+
+        .daun.visible {
+            display: block;
         }
 
         @keyframes jatuh {
@@ -336,6 +372,12 @@
             display: block;
             max-width: 80%;
             max-height: 80%;
+            animation: zoom 0.3s;
+        }
+
+        @keyframes zoom {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         .close {
@@ -347,6 +389,14 @@
             font-weight: bold;
             cursor: pointer;
         }
+
+        /* Container buat Spotify embed */
+        #spotifyContainer {
+            margin-top: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
     </style>
 </head>
 <body>
@@ -357,6 +407,7 @@
 </div>
 
 <button class="toggle" onclick="toggleMode()">🌓 Dark Mode</button>
+<button class="music-btn" onclick="toggleSpotify()">🎵 Putar Hindia (Random)</button>
 <div class="admin-badge" onclick="showAdminPanel()">🔑 Admin Panel</div>
 
 <header>
@@ -377,6 +428,8 @@
         <div class="photo-grid" id="photoGrid">
             <!-- Foto akan ditampilkan di sini via JavaScript -->
         </div>
+        <!-- Spotify container akan muncul di sini -->
+        <div id="spotifyContainer"></div>
     </div>
 </div>
 
@@ -427,8 +480,17 @@
 // ==================== KONFIGURASI ====================
 const ADMIN_PASSWORD = "142004*Wazz";
 let photos = [];
+let daunInterval = null;
+let spotifyVisible = false;
 
-// CUMA 1 FOTO: unnamed (2).webp
+// 🎵 4 LAGU HINDIA DARI SPOTIFY (EMBED LINK)
+const spotifyTracks = [
+    'https://open.spotify.com/embed/track/5WOSNVChcadlsCRiqXE45K', // everything u are
+    'https://open.spotify.com/embed/track/2wAiFWjRupWmnDkQcu91MF', // Rumah Ke Rumah
+    'https://open.spotify.com/embed/track/5drW6PGRxkE6MxttzVLNk5', // Secukupnya
+    'https://open.spotify.com/embed/track/1bcIiU5FWRa2IYBqx0bk67'  // Evakuasi
+];
+
 const DEFAULT_PHOTOS = [
     'unnamed (2).webp'
 ];
@@ -448,6 +510,7 @@ function savePhotos() {
     localStorage.setItem('bagarurung_photos', JSON.stringify(photos));
 }
 
+// ==================== GALERI FOTO + EFEK 3D ====================
 function renderPhotos() {
     const grid = document.getElementById('photoGrid');
     grid.innerHTML = '';
@@ -456,10 +519,29 @@ function renderPhotos() {
         const item = document.createElement('div');
         item.className = 'photo-item';
         item.innerHTML = `
-            <img src="${photo}" alt="Bukit Bagarurung" onclick="openModal('${photo}')">
+            <img src="${photo}" alt="Bukit Bagarurung" onclick="handlePhotoClick(event, '${photo}')">
         `;
         grid.appendChild(item);
     });
+}
+
+function handlePhotoClick(event, src) {
+    const img = event.target;
+    const parent = img.parentElement;
+    
+    parent.classList.add('flip');
+    setTimeout(() => {
+        parent.classList.remove('flip');
+    }, 500);
+    
+    parent.classList.add('tilt');
+    setTimeout(() => {
+        parent.classList.remove('tilt');
+    }, 500);
+    
+    setTimeout(() => {
+        openModal(src);
+    }, 250);
 }
 
 // ==================== MODAL FOTO ====================
@@ -471,6 +553,73 @@ function openModal(src) {
 function closeModal() {
     document.getElementById('myModal').style.display = 'none';
 }
+
+// ==================== SPOTIFY RANDOM HINDIA ====================
+function toggleSpotify() {
+    const container = document.getElementById('spotifyContainer');
+    const btn = document.querySelector('.music-btn');
+    
+    if (spotifyVisible) {
+        container.innerHTML = '';
+        btn.textContent = '🎵 Putar Hindia (Random)';
+        spotifyVisible = false;
+    } else {
+        // Pilih lagu random
+        const randomIndex = Math.floor(Math.random() * spotifyTracks.length);
+        const trackUrl = spotifyTracks[randomIndex];
+        
+        // Buat embed Spotify
+        container.innerHTML = `
+            <iframe style="border-radius:12px" 
+                src="${trackUrl}?utm_source=generator" 
+                width="100%" 
+                height="152" 
+                frameBorder="0" 
+                allowfullscreen="" 
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                loading="lazy">
+            </iframe>
+        `;
+        
+        // Ganti teks tombol sesuai lagu
+        const trackNames = ['everything u are', 'Rumah Ke Rumah', 'Secukupnya', 'Evakuasi'];
+        btn.textContent = `⏸️ ${trackNames[randomIndex]}`;
+        spotifyVisible = true;
+    }
+}
+
+// ==================== DAUN JATUH ====================
+function startDaun() {
+    if (daunInterval) return;
+    
+    daunInterval = setInterval(buatDaun, 500);
+    
+    document.querySelectorAll('.daun').forEach(d => {
+        d.classList.add('visible');
+    });
+}
+
+function buatDaun() {
+    const daun = document.createElement('div');
+    daun.classList.add('daun', 'visible');
+    const emojis = ['🌿', '☘️', '🍀', '🌱', '🍃'];
+    daun.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+    daun.style.left = Math.random() * window.innerWidth + 'px';
+    daun.style.animationDuration = (3 + Math.random() * 5) + 's';
+    daun.style.fontSize = (15 + Math.random() * 20) + 'px';
+    document.body.appendChild(daun);
+    setTimeout(() => daun.remove(), 8000);
+}
+
+window.addEventListener('scroll', function() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight;
+    const clientHeight = document.documentElement.clientHeight;
+    
+    if (scrollTop + clientHeight >= scrollHeight - 50) {
+        startDaun();
+    }
+});
 
 // ==================== ADMIN PANEL ====================
 function showAdminPanel() {
@@ -497,11 +646,8 @@ function logout() {
     document.getElementById('adminPanel').classList.add('hidden');
 }
 
-// ==================== FITUR RAHASIA (UPDATE) ====================
-
-// 1. GANTI BACKGROUND DENGAN PILIHAN WARNA + CAMPUR 2 WARNA
+// ==================== FITUR RAHASIA ====================
 function showGradientPicker() {
-    // Daftar pilihan warna (bisa ditambah sendiri)
     const colors = [
         { name: 'Hijau Segar', value: 'linear-gradient(135deg, #a8e6cf, #d4ed9a)' },
         { name: 'Biru Laut', value: 'linear-gradient(135deg, #89f7fe, #66a6ff)' },
@@ -513,7 +659,6 @@ function showGradientPicker() {
         { name: 'Kuning Biru', value: 'linear-gradient(135deg, #f9d423, #4e54c8)' }
     ];
 
-    // Buat panel pilihan sederhana
     let message = '🎨 Pilih kombinasi warna gradient:\n\n';
     colors.forEach((c, index) => {
         message += `${index + 1}. ${c.name}\n`;
@@ -525,7 +670,6 @@ function showGradientPicker() {
 
     if (idx >= 0 && idx < colors.length) {
         document.body.style.background = colors[idx].value;
-        // Matiin dark mode kalo nyala
         if (document.body.classList.contains('dark')) {
             document.body.classList.remove('dark');
         }
@@ -534,7 +678,6 @@ function showGradientPicker() {
     }
 }
 
-// 2. EASTER EGG (netral)
 function triggerEasterEgg() {
     const egg = document.createElement('div');
     egg.className = 'easter-egg';
@@ -543,7 +686,6 @@ function triggerEasterEgg() {
     setTimeout(() => egg.remove(), 3000);
 }
 
-// 3. JOKE GENERATOR (UPDATE: GA ADA RIANMODSS)
 function showJoke() {
     const jokes = [
         'Kenapa ayam nyebrang jalan? Karena ga ada gofood di seberang!',
@@ -565,22 +707,8 @@ function toggleMode() {
     document.body.classList.toggle('dark');
 }
 
-// ==================== DAUN JATUH ====================
-function buatDaun() {
-    const daun = document.createElement('div');
-    daun.classList.add('daun');
-    const emojis = ['🌿', '☘️', '🍀', '🌱', '🍃'];
-    daun.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-    daun.style.left = Math.random() * window.innerWidth + 'px';
-    daun.style.animationDuration = (3 + Math.random() * 5) + 's';
-    daun.style.fontSize = (15 + Math.random() * 20) + 'px';
-    document.body.appendChild(daun);
-    setTimeout(() => daun.remove(), 8000);
-}
-
 // ==================== INIT ====================
 loadPhotos();
-setInterval(buatDaun, 500);
 
 if (sessionStorage.getItem('admin') === 'true') {
     document.getElementById('loginForm').classList.add('hidden');
