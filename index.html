@@ -107,10 +107,10 @@
             color: #a5d6a7;
         }
 
-        /* ===== GALERI FOTO (TETAP) ===== */
+        /* ===== GALERI FOTO (CUMA 1 FOTO) ===== */
         .photo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(1, 1fr);
             gap: 15px;
             margin-top: 20px;
         }
@@ -129,7 +129,7 @@
 
         .photo-item img {
             width: 100%;
-            height: 150px;
+            height: 300px;
             object-fit: cover;
             display: block;
             cursor: pointer;
@@ -185,7 +185,7 @@
             display: none;
         }
 
-        /* Fitur Rahasia - cuma muncul kalo login */
+        /* Fitur Rahasia */
         .secret-features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -224,7 +224,7 @@
             opacity: 0.9;
         }
 
-        /* Easter Egg - pesan rahasia */
+        /* Easter Egg */
         .easter-egg {
             position: fixed;
             top: 50%;
@@ -392,21 +392,17 @@
     <div id="secretFeatures" class="hidden">
         <h2>🎯 Fitur Rahasia</h2>
         <div class="secret-features">
+            <div class="secret-card" onclick="showGradientPicker()">
+                <h3>🎨 Ganti Background</h3>
+                <p>Klik pilih warna gradient!</p>
+            </div>
             <div class="secret-card" onclick="triggerEasterEgg()">
                 <h3>🥚 Easter Egg</h3>
                 <p>Klik untuk pesan rahasia!</p>
             </div>
-            <div class="secret-card" onclick="changeBackground()">
-                <h3>🎨 Ganti Background</h3>
-                <p>Klik untuk mode psychedelic!</p>
-            </div>
             <div class="secret-card" onclick="showJoke()">
                 <h3>😂 Joke Generator</h3>
                 <p>Klik untuk ketawa!</p>
-            </div>
-            <div class="secret-card" onclick="countVisitors()">
-                <h3>👥 Visitor Counter</h3>
-                <p>Klik untuk lihat jumlah pengunjung</p>
             </div>
         </div>
         <button onclick="logout()" style="background: #f44336; margin-top: 20px;">Logout</button>
@@ -431,12 +427,10 @@
 // ==================== KONFIGURASI ====================
 const ADMIN_PASSWORD = "142004*Wazz";
 let photos = [];
-let visitorCount = 0;
 
+// CUMA 1 FOTO: unnamed (2).webp
 const DEFAULT_PHOTOS = [
-    'unnamed (2).webp',
-    'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
-    'https://images.unsplash.com/photo-1462332420958-a05d1e002413?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
+    'unnamed (2).webp'
 ];
 
 function loadPhotos() {
@@ -462,7 +456,7 @@ function renderPhotos() {
         const item = document.createElement('div');
         item.className = 'photo-item';
         item.innerHTML = `
-            <img src="${photo}" alt="Foto Bagarurung ${index + 1}" onclick="openModal('${photo}')">
+            <img src="${photo}" alt="Bukit Bagarurung" onclick="openModal('${photo}')">
         `;
         grid.appendChild(item);
     });
@@ -503,41 +497,67 @@ function logout() {
     document.getElementById('adminPanel').classList.add('hidden');
 }
 
-// ==================== FITUR RAHASIA ====================
+// ==================== FITUR RAHASIA (UPDATE) ====================
+
+// 1. GANTI BACKGROUND DENGAN PILIHAN WARNA + CAMPUR 2 WARNA
+function showGradientPicker() {
+    // Daftar pilihan warna (bisa ditambah sendiri)
+    const colors = [
+        { name: 'Hijau Segar', value: 'linear-gradient(135deg, #a8e6cf, #d4ed9a)' },
+        { name: 'Biru Laut', value: 'linear-gradient(135deg, #89f7fe, #66a6ff)' },
+        { name: 'Sunset', value: 'linear-gradient(135deg, #ff9a9e, #fad0c4)' },
+        { name: 'Ungu Malam', value: 'linear-gradient(135deg, #a18cd1, #fbc2eb)' },
+        { name: 'Orange Semangat', value: 'linear-gradient(135deg, #f093fb, #f5576c)' },
+        { name: 'Hijau Hutan', value: 'linear-gradient(135deg, #134e5e, #71b280)' },
+        { name: 'Merah Putih', value: 'linear-gradient(135deg, #ff0000, #ffffff)' },
+        { name: 'Kuning Biru', value: 'linear-gradient(135deg, #f9d423, #4e54c8)' }
+    ];
+
+    // Buat panel pilihan sederhana
+    let message = '🎨 Pilih kombinasi warna gradient:\n\n';
+    colors.forEach((c, index) => {
+        message += `${index + 1}. ${c.name}\n`;
+    });
+    message += '\nMasukkan nomor (1-8):';
+
+    const choice = prompt(message);
+    const idx = parseInt(choice) - 1;
+
+    if (idx >= 0 && idx < colors.length) {
+        document.body.style.background = colors[idx].value;
+        // Matiin dark mode kalo nyala
+        if (document.body.classList.contains('dark')) {
+            document.body.classList.remove('dark');
+        }
+    } else {
+        alert('❌ Pilihan ga valid, coba lagi!');
+    }
+}
+
+// 2. EASTER EGG (netral)
 function triggerEasterEgg() {
     const egg = document.createElement('div');
     egg.className = 'easter-egg';
-    egg.innerHTML = '🥚 SELAMAT! LU NEMU EASTER EGG!<br>@RianModss is the best! 😹';
+    egg.innerHTML = '🥚 SELAMAT! LU NEMU EASTER EGG!<br>Ada apa dengan hari ini? 😹';
     document.body.appendChild(egg);
     setTimeout(() => egg.remove(), 3000);
 }
 
-function changeBackground() {
-    const colors = [
-        'linear-gradient(135deg, #ff6b6b, #4ecdc4)',
-        'linear-gradient(135deg, #a8e6cf, #d4ed9a)',
-        'linear-gradient(135deg, #ff9a9e, #fad0c4)',
-        'linear-gradient(135deg, #a1c4fd, #c2e9fb)',
-        'linear-gradient(135deg, #fbc2eb, #a6c1ee)'
-    ];
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
-    document.body.style.background = randomColor;
-}
-
+// 3. JOKE GENERATOR (UPDATE: GA ADA RIANMODSS)
 function showJoke() {
     const jokes = [
-        'Kenapa ayam nyebrang jalan? Karena mau ke seberang!',
-        'Apa bedanya kamu sama kuburan? Kuburan disiram bunga, kamu disiram doi?',
-        'Guru: "Siapa yang mau jadi PNS?" Murid: "Saya Pak!" Guru: "PNS apa?" Murid: "Pendek Nggak Sampai"',
-        'Orang apa yang paling sabar? Orang yang lagi ngantre terus ditikung',
-        'Kenapa admin Quantum paling ganteng? Soalnya dia @RianModss!'
+        'Kenapa ayam nyebrang jalan? Karena ga ada gofood di seberang!',
+        'Apa bedanya kamu sama AC? AC dingin, kamu... ah sudahlah.',
+        'Guru: "Kenapa kamu telat?" Murid: "Ada rapat RT, Pak." Guru: "RT?" Murid: "Rapat Terus!"',
+        'Orang apa yang paling tenang? Orang yang lagi di rumah aja.',
+        'Kenapa hp suka panas? Karena kalo dingin namanya kulkas.',
+        'Apa bahasa Jepangnya "saya lapar"? Saya lapaar~',
+        'Kenapa air laut asin? Karena ikan-ikannya pada nangis gara-gara dimakan.',
+        'Apa itu? Bulat, putih, bikin senyum? Tahu bulat!',
+        'Belajar coding itu mudah, tinggal copas katanya.',
+        'Kalo ada listrik mati, berarti lagi diskon.'
     ];
     alert(jokes[Math.floor(Math.random() * jokes.length)]);
-}
-
-function countVisitors() {
-    visitorCount++;
-    alert(`👥 Jumlah pengunjung rahasia: ${visitorCount} orang`);
 }
 
 // ==================== DARK MODE ====================
