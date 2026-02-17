@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bukit Bagarurung - Wisata Kuningan</title>
     <style>
-        /* ===== SEMUA FITUR LAMA TETAP ADA ===== */
+        /* ===== SEMUA FITUR TETAP ADA ===== */
         body {
             margin: 0;
             font-family: 'Segoe UI', Arial, sans-serif;
@@ -169,7 +169,6 @@
             100% { transform: rotateX(0deg) rotateY(0deg); }
         }
 
-        /* ===== AKSES ADMIN ===== */
         .admin-panel {
             background: rgba(255,255,255,0.95);
             padding: 30px;
@@ -464,7 +463,7 @@ let photos = [];
 let daunInterval = null;
 let spotifyVisible = false;
 
-// 4 LAGU HINDIA DARI SPOTIFY
+// 🎵 4 LAGU HINDIA DARI SPOTIFY
 const spotifyTracks = [
     'https://open.spotify.com/embed/track/5WOSNVChcadlsCRiqXE45K',
     'https://open.spotify.com/embed/track/2wAiFWjRupWmnDkQcu91MF',
@@ -472,11 +471,12 @@ const spotifyTracks = [
     'https://open.spotify.com/embed/track/1bcIiU5FWRa2IYBqx0bk67'
 ];
 
+// ==================== CUMA 1 FOTO ====================
 const DEFAULT_PHOTOS = [
     'unnamed (2).webp'
 ];
 
-// ==================== VISITOR COUNTER (RAHASIA) ====================
+// ==================== VISITOR COUNTER ====================
 function initVisitorCounter() {
     let count = localStorage.getItem('visitorCount');
     if (!count) {
@@ -496,7 +496,7 @@ function resetVisitorCount() {
     }
 }
 
-// ==================== DESKRIPSI EDITOR ====================
+// ==================== DESKRIPSI ====================
 function loadDeskripsi() {
     const saved = localStorage.getItem('deskripsiBag');
     if (saved) {
@@ -526,7 +526,6 @@ function applyBackground() {
     showAdminMessage('Background berhasil diubah!');
 }
 
-// ==================== ADMIN MESSAGE ====================
 function showAdminMessage(msg) {
     const msgEl = document.getElementById('adminMessage');
     msgEl.textContent = msg;
