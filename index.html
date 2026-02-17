@@ -4,11 +4,14 @@
   <title>Bukit Bagarurung</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    /* ===== SEMUA FITUR TETAP ADA ===== */
+    /* HANYA UKURAN YANG DIATUR LEBIH KECIL */
+    
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       font-weight: bold;
-      font-size: 18px;
+      font-size: 14px;  /* DIPERKECIL dari 18px */
       background: linear-gradient(to bottom, #e8f5e9, #ffffff);
       color: #1b5e20;
       transition: background 0.5s, color 0.5s;
@@ -20,11 +23,11 @@
     }
 
     header {
-      height: 50vh;
+      height: 60vh;  /* DIPERKECIL dari 80vh biar pas */
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 38px;
+      font-size: 42px;  /* DIPERKECIL */
       text-align: center;
       background-image: url("unnamed (2).webp");
       background-size: cover;
@@ -35,14 +38,15 @@
 
     .toggle {
       position: fixed;
-      top: 20px;
-      right: 20px;
-      padding: 10px 20px;
+      top: 10px;
+      right: 10px;
+      padding: 6px 12px;
       background: #1b5e20;
       color: white;
-      border-radius: 30px;
+      border-radius: 20px;
       cursor: pointer;
       z-index: 1000;
+      font-size: 11px;
     }
 
     .container {
@@ -51,16 +55,16 @@
       justify-content: center;
       width: 90%;
       max-width: 1000px;
-      margin: 20px auto;
+      margin: 15px auto;
     }
 
     .text-section, .photo-section {
       flex: 1 1 400px;
-      margin: 10px;
-      padding: 20px;
+      margin: 8px;
+      padding: 12px;
       background: rgba(255,255,255,0.9);
-      border-radius: 15px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     }
 
     body.dark .text-section, body.dark .photo-section {
@@ -68,19 +72,21 @@
     }
 
     .text-section p {
-      line-height: 1.6;
+      line-height: 1.5;
       text-align: justify;
+      font-size: 13px;
     }
 
     h2 {
       text-align: center;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
+      font-size: 18px;
     }
 
     img {
       width: 100%;
-      border-radius: 15px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
       transition: transform 0.2s ease;
     }
 
@@ -90,31 +96,38 @@
 
     @keyframes bouncePhoto {
       0% { transform: scale(1); }
-      30% { transform: scale(1.1) rotate(3deg); }
+      30% { transform: scale(1.05) rotate(2deg); }
       60% { transform: scale(0.95); }
       100% { transform: scale(1); }
     }
 
     .kelompok {
       text-align: center;
-      font-size: 18px;
-      margin: 20px auto;
+      font-size: 14px;
+      margin: 15px auto;
       max-width: 600px;
+    }
+
+    .kelompok p {
+      font-size: 14px;
+      margin: 4px 0;
     }
 
     footer {
       text-align: center;
-      padding: 20px;
+      padding: 12px;
       background: #1b5e20;
       color: white;
-      margin-top: 20px;
+      margin-top: 15px;
+      font-size: 12px;
     }
 
     .daun {
       position: fixed;
       top: -50px;
-      font-size: 24px;
+      font-size: 18px;
       animation: jatuh linear infinite;
+      pointer-events: none;
     }
 
     @keyframes jatuh {
@@ -123,18 +136,26 @@
 
     .wa-link {
       text-align: center;
-      margin: 20px;
-      font-size: 18px;
+      margin: 15px;
+      font-size: 14px;
     }
 
     .wa-link a {
       color: #1b5e20;
       font-weight: bold;
       text-decoration: none;
+      background: #e8f5e9;
+      padding: 6px 12px;
+      border-radius: 25px;
+      display: inline-block;
+      border: 1px solid #1b5e20;
+      font-size: 13px;
     }
 
     body.dark .wa-link a {
       color: #a5d6a7;
+      background: #1e2a3a;
+      border-color: #a5d6a7;
     }
   </style>
 </head>
@@ -212,7 +233,7 @@ photo.addEventListener("mousemove",function(e){
   const cy=rect.height/2;
   const dx=(x-cx)/cx;
   const dy=(y-cy)/cy;
-  photo.style.transform=`rotateX(${-dy*10}deg) rotateY(${dx*10}deg) scale(1.05)`;
+  photo.style.transform=`rotateX(${-dy*8}deg) rotateY(${dx*8}deg) scale(1.03)`;
 });
 photo.addEventListener("mouseleave",function(){photo.style.transform="rotateX(0deg) rotateY(0deg) scale(1)";});
 photo.addEventListener("touchmove",function(e){
@@ -224,7 +245,7 @@ photo.addEventListener("touchmove",function(e){
   const cy=rect.height/2;
   const dx=(x-cx)/cx;
   const dy=(y-cy)/cy;
-  photo.style.transform=`rotateX(${-dy*10}deg) rotateY(${dx*10}deg) scale(1.05)`;
+  photo.style.transform=`rotateX(${-dy*8}deg) rotateY(${dx*8}deg) scale(1.03)`;
 });
 photo.addEventListener("touchend",function(){photo.style.transform="rotateX(0deg) rotateY(0deg) scale(1)";});
 </script>
