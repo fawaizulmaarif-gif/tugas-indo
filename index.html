@@ -169,7 +169,7 @@
             100% { transform: rotateX(0deg) rotateY(0deg); }
         }
 
-        /* ===== ADMIN PANEL UPDATE ===== */
+        /* ===== AKSES ADMIN ===== */
         .admin-panel {
             background: rgba(255,255,255,0.95);
             padding: 30px;
@@ -256,27 +256,6 @@
             left: 10px;
             z-index: 1000;
             cursor: pointer;
-        }
-
-        /* Counter pengunjung */
-        .visitor-counter {
-            text-align: center;
-            margin: 10px 0;
-            padding: 10px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 50px;
-            font-size: 16px;
-        }
-
-        .visitor-counter span {
-            font-weight: bold;
-            color: #1b5e20;
-            font-size: 24px;
-            margin-left: 10px;
-        }
-
-        body.dark .visitor-counter span {
-            color: #a5d6a7;
         }
 
         .kelompok {
@@ -399,14 +378,9 @@
     <img class="modal-content" id="modalImage">
 </div>
 
-<button class="toggle" onclick="toggleMode()">🌓 Dark Mode</button>
-<button class="music-btn" onclick="toggleSpotify()">🎵 Putar Hindia (Random)</button>
-<div class="admin-badge" onclick="showAdminPanel()">🔑 Admin Panel</div>
-
-<!-- Visitor Counter -->
-<div class="visitor-counter">
-    👥 Pengunjung: <span id="visitorCount">0</span>
-</div>
+<button class="toggle" onclick="toggleMode()">Dark Mode</button>
+<button class="music-btn" onclick="toggleSpotify()">Putar Lagu</button>
+<div class="admin-badge" onclick="showAdminPanel()">Akses Admin</div>
 
 <header>
     <h1>Bukit Bagarurung</h1>
@@ -414,7 +388,7 @@
 
 <div class="container">
     <div class="text-section">
-        <h2>🏞️ Deskripsi</h2>
+        <h2>Deskripsi</h2>
         <div id="deskripsiText">
             <p>Sejarah Bukit Bagarurung berawal sebagai kawasan hutan alami di wilayah Darma, Kabupaten Kuningan, Provinsi Jawa Barat. Area ini merupakan bagian dari bentang alam perbukitan yang mengelilingi kawasan Waduk Darma dan lereng Gunung Ciremai.</p>
             <p>Pada masa kolonial Hindia Belanda, puncak bukit ini dimanfaatkan sebagai titik peneropongan atau pengamatan wilayah. Letaknya yang tinggi dan terbuka menjadikannya strategis untuk memantau area sekitar. Sisa-sisa struktur lama dilaporkan pernah ditemukan di area puncak sebagai jejak fungsi tersebut.</p>
@@ -424,7 +398,7 @@
     </div>
 
     <div class="photo-section">
-        <h2>📸 Galeri Foto</h2>
+        <h2>Galeri Foto</h2>
         <div class="photo-grid" id="photoGrid">
             <!-- Foto akan ditampilkan di sini via JavaScript -->
         </div>
@@ -432,9 +406,9 @@
     </div>
 </div>
 
-<!-- Admin Panel UPDATE -->
+<!-- AKSES ADMIN -->
 <div id="adminPanel" class="admin-panel hidden">
-    <h2>🔐 Admin Panel</h2>
+    <h2>Akses Admin</h2>
     
     <div id="loginForm">
         <input type="password" id="password" placeholder="Masukkan password admin" autocomplete="off">
@@ -443,11 +417,11 @@
     </div>
 
     <div id="adminFeatures" class="hidden">
-        <h3>✏️ Edit Deskripsi</h3>
+        <h3>Edit Deskripsi</h3>
         <textarea id="deskripsiEditor" placeholder="Edit teks deskripsi di sini..."></textarea>
         <button onclick="saveDeskripsi()">Simpan Deskripsi</button>
         
-        <h3>🎨 Ganti Background</h3>
+        <h3>Ganti Background</h3>
         <select id="bgGradient">
             <option value="linear-gradient(135deg, #a8e6cf, #d4ed9a)">Hijau Segar</option>
             <option value="linear-gradient(135deg, #89f7fe, #66a6ff)">Biru Laut</option>
@@ -460,7 +434,7 @@
         </select>
         <button onclick="applyBackground()">Terapkan Background</button>
         
-        <h3>👥 Statistik Pengunjung</h3>
+        <h3>Statistik Pengunjung</h3>
         <p>Total pengunjung: <strong id="adminVisitorCount">0</strong></p>
         <button onclick="resetVisitorCount()">Reset Counter</button>
         
@@ -470,7 +444,7 @@
 </div>
 
 <div class="kelompok">
-    <h2>👥 Nama Kelompok</h2>
+    <h2>Nama Kelompok</h2>
     <p>Fawaz</p>
     <p>Dika</p>
     <p>Rama</p>
@@ -490,7 +464,7 @@ let photos = [];
 let daunInterval = null;
 let spotifyVisible = false;
 
-// 🎵 4 LAGU HINDIA DARI SPOTIFY
+// 4 LAGU HINDIA DARI SPOTIFY
 const spotifyTracks = [
     'https://open.spotify.com/embed/track/5WOSNVChcadlsCRiqXE45K',
     'https://open.spotify.com/embed/track/2wAiFWjRupWmnDkQcu91MF',
@@ -502,7 +476,7 @@ const DEFAULT_PHOTOS = [
     'unnamed (2).webp'
 ];
 
-// ==================== VISITOR COUNTER ====================
+// ==================== VISITOR COUNTER (RAHASIA) ====================
 function initVisitorCounter() {
     let count = localStorage.getItem('visitorCount');
     if (!count) {
@@ -511,16 +485,14 @@ function initVisitorCounter() {
         count = parseInt(count) + 1;
     }
     localStorage.setItem('visitorCount', count);
-    document.getElementById('visitorCount').textContent = count;
     document.getElementById('adminVisitorCount').textContent = count;
 }
 
 function resetVisitorCount() {
     if (sessionStorage.getItem('admin') === 'true') {
         localStorage.setItem('visitorCount', 1);
-        document.getElementById('visitorCount').textContent = 1;
         document.getElementById('adminVisitorCount').textContent = 1;
-        showAdminMessage('✅ Counter pengunjung direset!');
+        showAdminMessage('Counter pengunjung direset!');
     }
 }
 
@@ -539,7 +511,7 @@ function saveDeskripsi() {
     const newDeskripsi = document.getElementById('deskripsiEditor').value;
     document.getElementById('deskripsiText').innerHTML = newDeskripsi;
     localStorage.setItem('deskripsiBag', newDeskripsi);
-    showAdminMessage('✅ Deskripsi berhasil disimpan!');
+    showAdminMessage('Deskripsi berhasil disimpan!');
 }
 
 // ==================== BACKGROUND ====================
@@ -551,7 +523,7 @@ function applyBackground() {
     if (document.body.classList.contains('dark')) {
         document.body.classList.remove('dark');
     }
-    showAdminMessage('✅ Background berhasil diubah!');
+    showAdminMessage('Background berhasil diubah!');
 }
 
 // ==================== ADMIN MESSAGE ====================
@@ -628,7 +600,7 @@ function toggleSpotify() {
     
     if (spotifyVisible) {
         container.innerHTML = '';
-        btn.textContent = '🎵 Putar Hindia (Random)';
+        btn.textContent = 'Putar Lagu';
         spotifyVisible = false;
     } else {
         const randomIndex = Math.floor(Math.random() * spotifyTracks.length);
@@ -647,7 +619,7 @@ function toggleSpotify() {
         `;
         
         const trackNames = ['everything u are', 'Rumah Ke Rumah', 'Secukupnya', 'Evakuasi'];
-        btn.textContent = `⏸️ ${trackNames[randomIndex]}`;
+        btn.textContent = `${trackNames[randomIndex]}`;
         spotifyVisible = true;
     }
 }
@@ -685,7 +657,7 @@ window.addEventListener('scroll', function() {
     }
 });
 
-// ==================== ADMIN PANEL ====================
+// ==================== AKSES ADMIN ====================
 function showAdminPanel() {
     document.getElementById('adminPanel').classList.remove('hidden');
 }
@@ -698,10 +670,10 @@ function checkPassword() {
         document.getElementById('adminFeatures').classList.remove('hidden');
         document.getElementById('loginError').innerHTML = '';
         
-        // Isi editor dengan deskripsi terkini
         document.getElementById('deskripsiEditor').value = document.getElementById('deskripsiText').innerHTML;
+        document.getElementById('adminVisitorCount').textContent = localStorage.getItem('visitorCount') || 1;
     } else {
-        document.getElementById('loginError').innerHTML = '❌ Password salah!';
+        document.getElementById('loginError').innerHTML = 'Password salah!';
     }
 }
 
@@ -726,6 +698,7 @@ loadPhotos();
 if (sessionStorage.getItem('admin') === 'true') {
     document.getElementById('loginForm').classList.add('hidden');
     document.getElementById('adminFeatures').classList.remove('hidden');
+    document.getElementById('adminVisitorCount').textContent = localStorage.getItem('visitorCount') || 1;
 }
 
 window.onclick = function(event) {
