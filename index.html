@@ -1,253 +1,475 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <title>Bukit Bagarurung</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    /* ===== SEMUA FITUR TETAP ADA ===== */
-    /* HANYA UKURAN YANG DIATUR LEBIH KECIL */
-    
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      font-weight: bold;
-      font-size: 14px;  /* DIPERKECIL dari 18px */
-      background: linear-gradient(to bottom, #e8f5e9, #ffffff);
-      color: #1b5e20;
-      transition: background 0.5s, color 0.5s;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bukit Bagarurung - Wisata Kuningan</title>
+    <style>
+        /* ===== SEMUA FITUR TETAP ADA ===== */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-weight: bold;
+            font-size: 14px;
+            background: linear-gradient(to bottom, #e8f5e9, #ffffff);
+            color: #1b5e20;
+            transition: background 0.5s, color 0.5s;
+        }
 
-    body.dark {
-      background: linear-gradient(to bottom, #0f2027, #203a43);
-      color: white;
-    }
+        body.dark {
+            background: linear-gradient(to bottom, #0f2027, #203a43);
+            color: white;
+        }
 
-    header {
-      height: 60vh;  /* DIPERKECIL dari 80vh biar pas */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 42px;  /* DIPERKECIL */
-      text-align: center;
-      background-image: url("unnamed (2).webp");
-      background-size: cover;
-      background-position: center;
-      color: white;
-      text-shadow: 0 5px 20px rgba(0,0,0,0.8);
-    }
+        header {
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+            text-align: center;
+            background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-shadow: 0 5px 20px rgba(0,0,0,0.8);
+        }
 
-    .toggle {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      padding: 6px 12px;
-      background: #1b5e20;
-      color: white;
-      border-radius: 20px;
-      cursor: pointer;
-      z-index: 1000;
-      font-size: 11px;
-    }
+        .toggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 8px 16px;
+            background: #1b5e20;
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 12px;
+            font-weight: bold;
+            border: none;
+        }
 
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      width: 90%;
-      max-width: 1000px;
-      margin: 15px auto;
-    }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            gap: 20px;
+        }
 
-    .text-section, .photo-section {
-      flex: 1 1 400px;
-      margin: 8px;
-      padding: 12px;
-      background: rgba(255,255,255,0.9);
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    }
+        .text-section, .photo-section {
+            flex: 1 1 400px;
+            padding: 20px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
 
-    body.dark .text-section, body.dark .photo-section {
-      background: rgba(0,0,0,0.6);
-    }
+        body.dark .text-section, body.dark .photo-section {
+            background: rgba(0,0,0,0.6);
+        }
 
-    .text-section p {
-      line-height: 1.5;
-      text-align: justify;
-      font-size: 13px;
-    }
+        .text-section p {
+            line-height: 1.6;
+            text-align: justify;
+            margin-bottom: 15px;
+        }
 
-    h2 {
-      text-align: center;
-      margin-bottom: 10px;
-      font-size: 18px;
-    }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #1b5e20;
+        }
 
-    img {
-      width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-      transition: transform 0.2s ease;
-    }
+        body.dark h2 {
+            color: #a5d6a7;
+        }
 
-    img.touch-animate {
-      animation: bouncePhoto 0.6s ease;
-    }
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
 
-    @keyframes bouncePhoto {
-      0% { transform: scale(1); }
-      30% { transform: scale(1.05) rotate(2deg); }
-      60% { transform: scale(0.95); }
-      100% { transform: scale(1); }
-    }
+        .photo-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
 
-    .kelompok {
-      text-align: center;
-      font-size: 14px;
-      margin: 15px auto;
-      max-width: 600px;
-    }
+        .photo-item:hover {
+            transform: scale(1.05);
+        }
 
-    .kelompok p {
-      font-size: 14px;
-      margin: 4px 0;
-    }
+        .photo-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+        }
 
-    footer {
-      text-align: center;
-      padding: 12px;
-      background: #1b5e20;
-      color: white;
-      margin-top: 15px;
-      font-size: 12px;
-    }
+        .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255,0,0,0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            display: none;
+        }
 
-    .daun {
-      position: fixed;
-      top: -50px;
-      font-size: 18px;
-      animation: jatuh linear infinite;
-      pointer-events: none;
-    }
+        .photo-item:hover .delete-btn {
+            display: block;
+        }
 
-    @keyframes jatuh {
-      to { transform: translateY(110vh); }
-    }
+        .admin-panel {
+            background: rgba(255,255,255,0.95);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px auto;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
 
-    .wa-link {
-      text-align: center;
-      margin: 15px;
-      font-size: 14px;
-    }
+        body.dark .admin-panel {
+            background: rgba(0,0,0,0.8);
+        }
 
-    .wa-link a {
-      color: #1b5e20;
-      font-weight: bold;
-      text-decoration: none;
-      background: #e8f5e9;
-      padding: 6px 12px;
-      border-radius: 25px;
-      display: inline-block;
-      border: 1px solid #1b5e20;
-      font-size: 13px;
-    }
+        .admin-panel h2 {
+            margin-top: 0;
+        }
 
-    body.dark .wa-link a {
-      color: #a5d6a7;
-      background: #1e2a3a;
-      border-color: #a5d6a7;
-    }
-  </style>
+        .admin-panel input, .admin-panel button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .admin-panel button {
+            background: #1b5e20;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .admin-panel button:hover {
+            background: #2e7d32;
+        }
+
+        .error-msg {
+            color: #f44336;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .success-msg {
+            color: #4caf50;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .kelompok {
+            text-align: center;
+            margin: 30px auto;
+            max-width: 600px;
+        }
+
+        .kelompok p {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .wa-link {
+            text-align: center;
+            margin: 30px 20px;
+        }
+
+        .wa-link a {
+            color: #1b5e20;
+            font-weight: bold;
+            text-decoration: none;
+            background: #e8f5e9;
+            padding: 12px 25px;
+            border-radius: 50px;
+            display: inline-block;
+            border: 2px solid #1b5e20;
+            transition: all 0.3s;
+        }
+
+        .wa-link a:hover {
+            background: #1b5e20;
+            color: white;
+        }
+
+        body.dark .wa-link a {
+            color: #a5d6a7;
+            background: #1e2a3a;
+            border-color: #a5d6a7;
+        }
+
+        body.dark .wa-link a:hover {
+            background: #a5d6a7;
+            color: #1e2a3a;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #1b5e20;
+            color: white;
+            margin-top: 40px;
+        }
+
+        .daun {
+            position: fixed;
+            top: -50px;
+            font-size: 24px;
+            animation: jatuh linear infinite;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        @keyframes jatuh {
+            to { transform: translateY(110vh); }
+        }
+
+        .admin-badge {
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            z-index: 1000;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
-<div class="toggle" onclick="toggleMode()">Dark Mode</div>
+<!-- Tombol Dark Mode -->
+<button class="toggle" onclick="toggleMode()">🌓 Dark Mode</button>
 
+<!-- Admin Badge (khusus admin) -->
+<div class="admin-badge" onclick="showAdminPanel()">🔑 Admin Panel</div>
+
+<!-- Header -->
 <header>Bukit Bagarurung</header>
 
+<!-- Konten Utama -->
 <div class="container">
-  <div class="text-section">
-    <h2>Deskripsi</h2>
-    <p>Bukit Bagarurung merupakan salah satu destinasi wisata alam yang berada di Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Provinsi Jawa Barat. Kawasan ini berupa perbukitan dengan hutan pinus rapat dan udara sejuk. Dari puncaknya, pengunjung dapat melihat bentang alam luas, termasuk perbukitan sekitar Darma. Waduk Darma dan Gunung Ciremai terlihat jelas saat cuaca cerah.</p>
-    <p>Sebelumnya digunakan pada masa kolonial Belanda sebagai titik pengamatan. Kini menjadi destinasi wisata alam menarik.</p>
+    <div class="text-section">
+        <h2>🏞️ Deskripsi</h2>
+        <p>Bukit Bagarurung merupakan salah satu destinasi wisata alam yang berada di Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Provinsi Jawa Barat. Kawasan ini berupa perbukitan dengan hutan pinus rapat dan udara sejuk. Dari puncaknya, pengunjung dapat melihat bentang alam luas, termasuk perbukitan sekitar Darma. Waduk Darma dan Gunung Ciremai terlihat jelas saat cuaca cerah.</p>
+        <p>Sebelumnya digunakan pada masa kolonial Belanda sebagai titik pengamatan. Kini menjadi destinasi wisata alam menarik.</p>
 
-    <h2>ADIKSIMBA</h2>
-    <p><strong>Apa:</strong> Destinasi wisata alam dengan panorama perbukitan, hutan pinus, dan nilai sejarah.</p>
-    <p><strong>Di mana:</strong> Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Jawa Barat.</p>
-    <p><strong>Kapan:</strong> Sejak masa kolonial Belanda hingga sekarang.</p>
-    <p><strong>Siapa:</strong> Dahulu Belanda, kini masyarakat setempat dan wisatawan.</p>
-    <p><strong>Mengapa:</strong> Lokasi strategis, panorama indah, udara sejuk, suasana tenang.</p>
-    <p><strong>Bagaimana:</strong> Jalur menanjak menuju kawasan hutan pinus sampai puncak.</p>
-  </div>
+        <h2>📋 ADIKSIMBA</h2>
+        <p><strong>Apa:</strong> Destinasi wisata alam dengan panorama perbukitan, hutan pinus, dan nilai sejarah.</p>
+        <p><strong>Di mana:</strong> Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Jawa Barat.</p>
+        <p><strong>Kapan:</strong> Sejak masa kolonial Belanda hingga sekarang.</p>
+        <p><strong>Siapa:</strong> Dahulu Belanda, kini masyarakat setempat dan wisatawan.</p>
+        <p><strong>Mengapa:</strong> Lokasi strategis, panorama indah, udara sejuk, suasana tenang.</p>
+        <p><strong>Bagaimana:</strong> Jalur menanjak menuju kawasan hutan pinus sampai puncak.</p>
+    </div>
 
-  <div class="photo-section">
-    <h2>Galeri Foto</h2>
-    <img src="unnamed (2).webp" id="mainPhoto">
-  </div>
+    <div class="photo-section">
+        <h2>📸 Galeri Foto</h2>
+        <div class="photo-grid" id="photoGrid">
+            <!-- Foto akan ditampilkan di sini via JavaScript -->
+        </div>
+    </div>
 </div>
 
+<!-- Admin Panel (hidden by default) -->
+<div id="adminPanel" class="admin-panel hidden">
+    <h2>🔐 Admin Login</h2>
+    <div id="loginForm">
+        <input type="password" id="password" placeholder="Masukkan password admin" autocomplete="off">
+        <button onclick="checkPassword()">Login</button>
+        <div id="loginError" class="error-msg"></div>
+    </div>
+
+    <div id="uploadForm" class="hidden">
+        <h2>📤 Upload Foto</h2>
+        <input type="file" id="fileInput" multiple accept="image/*">
+        <button onclick="uploadPhotos()">Upload Foto</button>
+        <div id="uploadStatus" class="success-msg"></div>
+        <button onclick="logout()" style="background: #f44336;">Logout</button>
+    </div>
+</div>
+
+<!-- Nama Kelompok -->
 <div class="kelompok">
-  <h2>Nama Kelompok</h2>
-  <p>Fawaz</p>
-  <p>Dika</p>
-  <p>Rama</p>
-  <p>Alka</p>
+    <h2>👥 Nama Kelompok</h2>
+    <p>Fawaz</p>
+    <p>Dika</p>
+    <p>Rama</p>
+    <p>Alka</p>
 </div>
 
+<!-- Link WA -->
 <div class="wa-link">
-  <p>Jika ada yang mau dikoreksi, hubungi saya melalui <a href="https://wa.me/6285177595914" target="_blank">WhatsApp</a></p>
+    <p>Jika ada yang mau dikoreksi, hubungi saya melalui <a href="https://wa.me/6285177595914" target="_blank">WhatsApp</a></p>
 </div>
 
-<footer>© 2026 Bukit Bagarurung Project</footer>
+<!-- Footer -->
+<footer>© 2026 Bukit Bagarurung Project | Dikembangkan oleh Kelompok 4</footer>
 
 <script>
-function toggleMode(){
-  document.body.classList.toggle("dark");
+// ==================== KONFIGURASI ====================
+const ADMIN_PASSWORD = "142004*Wazz";
+let photos = [];
+
+// Load foto dari localStorage
+function loadPhotos() {
+    const saved = localStorage.getItem('bagarurung_photos');
+    if (saved) {
+        photos = JSON.parse(saved);
+    } else {
+        // Default photos (placeholder)
+        photos = [
+            'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+            'https://images.unsplash.com/photo-1462332420958-a05d1e002413?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
+            'https://images.unsplash.com/photo-1541873676-a18131494184?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'
+        ];
+        savePhotos();
+    }
+    renderPhotos();
 }
 
-// Daun jatuh 🌿☘️🍀
+// Simpan foto ke localStorage
+function savePhotos() {
+    localStorage.setItem('bagarurung_photos', JSON.stringify(photos));
+}
+
+// Tampilkan foto di galeri
+function renderPhotos() {
+    const grid = document.getElementById('photoGrid');
+    grid.innerHTML = '';
+    
+    photos.forEach((photo, index) => {
+        const item = document.createElement('div');
+        item.className = 'photo-item';
+        item.innerHTML = `
+            <img src="${photo}" alt="Foto Bagarurung ${index + 1}">
+            <button class="delete-btn" onclick="deletePhoto(${index})" title="Hapus foto">×</button>
+        `;
+        grid.appendChild(item);
+    });
+}
+
+// Hapus foto (hanya admin)
+function deletePhoto(index) {
+    if (sessionStorage.getItem('admin') === 'true') {
+        photos.splice(index, 1);
+        savePhotos();
+        renderPhotos();
+    } else {
+        alert('Anda harus login sebagai admin!');
+    }
+}
+
+// ==================== ADMIN PANEL ====================
+function showAdminPanel() {
+    document.getElementById('adminPanel').classList.remove('hidden');
+}
+
+function checkPassword() {
+    const pw = document.getElementById('password').value;
+    if (pw === ADMIN_PASSWORD) {
+        sessionStorage.setItem('admin', 'true');
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('uploadForm').classList.remove('hidden');
+        document.getElementById('loginError').innerHTML = '';
+    } else {
+        document.getElementById('loginError').innerHTML = '❌ Password salah!';
+    }
+}
+
+function logout() {
+    sessionStorage.removeItem('admin');
+    document.getElementById('loginForm').classList.remove('hidden');
+    document.getElementById('uploadForm').classList.add('hidden');
+    document.getElementById('password').value = '';
+    document.getElementById('adminPanel').classList.add('hidden');
+}
+
+// Upload foto (simpan sebagai base64 di localStorage)
+function uploadPhotos() {
+    const files = document.getElementById('fileInput').files;
+    if (files.length === 0) {
+        document.getElementById('uploadStatus').innerHTML = 'Pilih foto dulu!';
+        return;
+    }
+
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            photos.push(e.target.result);
+            if (i === files.length - 1) {
+                savePhotos();
+                renderPhotos();
+                document.getElementById('uploadStatus').innerHTML = `✅ ${files.length} foto berhasil diupload!`;
+                document.getElementById('fileInput').value = '';
+            }
+        };
+        
+        reader.readAsDataURL(file);
+    }
+}
+
+// ==================== DARK MODE ====================
+function toggleMode() {
+    document.body.classList.toggle('dark');
+}
+
+// ==================== DAUN JATUH ====================
 function buatDaun() {
-  const daun = document.createElement("div");
-  daun.classList.add("daun");
-  const emojis = ["🌿","☘️","🍀"];
-  daun.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
-  daun.style.left = Math.random()*window.innerWidth+"px";
-  daun.style.animationDuration = (3+Math.random()*5)+"s";
-  document.body.appendChild(daun);
-  setTimeout(()=>daun.remove(),8000);
+    const daun = document.createElement('div');
+    daun.classList.add('daun');
+    const emojis = ['🌿', '☘️', '🍀', '🌱', '🍃'];
+    daun.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+    daun.style.left = Math.random() * window.innerWidth + 'px';
+    daun.style.animationDuration = (3 + Math.random() * 5) + 's';
+    daun.style.fontSize = (15 + Math.random() * 20) + 'px';
+    document.body.appendChild(daun);
+    setTimeout(() => daun.remove(), 8000);
 }
-setInterval(buatDaun,400);
 
-// Foto interaktif
-const photo = document.getElementById("mainPhoto");
-photo.addEventListener("click",function(){
-  photo.classList.remove("touch-animate");
-  void photo.offsetWidth;
-  photo.classList.add("touch-animate");
-});
-photo.addEventListener("mousemove",function(e){
-  const rect=photo.getBoundingClientRect();
-  const x=e.clientX-rect.left;
-  const y=e.clientY-rect.top;
-  const cx=rect.width/2;
-  const cy=rect.height/2;
-  const dx=(x-cx)/cx;
-  const dy=(y-cy)/cy;
-  photo.style.transform=`rotateX(${-dy*8}deg) rotateY(${dx*8}deg) scale(1.03)`;
-});
-photo.addEventListener("mouseleave",function(){photo.style.transform="rotateX(0deg) rotateY(0deg) scale(1)";});
-photo.addEventListener("touchmove",function(e){
-  const touch=e.touches[0];
-  const rect=photo.getBoundingClientRect();
-  const x=touch.clientX-rect.left;
-  const y=touch.clientY-rect.top;
-  const cx=rect.width/2;
-  const cy=rect.height/2;
-  const dx=(x-cx)/cx;
-  const dy=(y-cy)/cy;
-  photo.style.transform=`rotateX(${-dy*8}deg) rotateY(${dx*8}deg) scale(1.03)`;
-});
-photo.addEventListener("touchend",function(){photo.style.transform="rotateX(0deg) rotateY(0deg) scale(1)";});
+// Jalankan fungsi
+loadPhotos();
+setInterval(buatDaun, 500);
+
+// Cek status admin saat load
+if (sessionStorage.getItem('admin') === 'true') {
+    document.getElementById('loginForm').classList.add('hidden');
+    document.getElementById('uploadForm').classList.remove('hidden');
+}
 </script>
 
 </body>
