@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bukit Bagarurung - Wisata Kuningan</title>
+    <style>
+        /* ===== SEMUA FITUR TETAP ADA ===== */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-weight: bold;
+            font-size: 14px;
+            background: linear-gradient(to bottom, #e8f5e9, #ffffff);
+            color: #1b5e20;
+            transition: background 0.5s, color 0.5s;
+        }
+
+        body.dark {
+            background: linear-gradient(to bottom, #0f2027, #203a43);
+            color: white;
+        }
+
+        header {
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            background-image: url('unnamed (2).webp');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-shadow: 0 5px 20px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+        }
+
+        header h1 {
+            position: relative;
+            z-index: 1;
+        }
+
+        .toggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 8px 16px;
+            background: #1b5e20;
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 12px;
+            font-weight: bold;
+            border: none;
+        }
+
+        .music-btn {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            padding: 8px 16px;
+            background: #1b5e20;
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 12px;
+            font-weight: bold;
+            border: none;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            gap: 20px;
+        }
+
+        .text-section, .photo-section {
+            flex: 1 1 400px;
+            padding: 20px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        body.dark .text-section, body.dark .photo-section {
+            background: rgba(0,0,0,0.6);
+        }
+
+        .text-section p {
+            line-height: 1.6;
+            text-align: justify;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #1b5e20;
+        }
+
+        body.dark h2 {
+            color: #a5d6a7;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .photo-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .photo-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s;
+            transform-style: preserve-3d;
+        }
+
+        .photo-item.flip img {
+            transform: rotateY(180deg) scale(1.1);
+        }
+
+        .photo-item.tilt img {
+            animation: tilt3D 0.5s ease;
+        }
+
+        @keyframes tilt3D {
+            0% { transform: rotateX(0deg) rotateY(0deg); }
+            25% { transform: rotateX(10deg) rotateY(10deg); }
+            50% { transform: rotateX(-5deg) rotateY(-5deg); }
+            100% { transform: rotateX(0deg) rotateY(0deg); }
+        }
+
+        .admin-panel {
+            background: rgba(255,255,255,0.95);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px auto;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        body.dark .admin-panel {
+            background: rgba(0,0,0,0.8);
+        }
+
+        .admin-panel h2 {
+            margin-top: 0;
+            color: #1b5e20;
+        }
+
+        body.dark .admin-panel h2 {
+            color: #a5d6a7;
+        }
+
+        .admin-panel input, .admin-panel button, .admin-panel textarea, .admin-panel select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .admin-panel textarea {
+            min-height: 150px;
+            font-family: inherit;
+        }
+
+        .admin-panel button {
+            background: #1b5e20;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .admin-panel button:hover {
+            background: #2e7d32;
+        }
+
+        .admin-panel .logout-btn {
+            background: #f44336;
+            margin-top: 20px;
+        }
+
+        .admin-panel .logout-btn:hover {
+            background: #d32f2f;
+        }
+
+        .error-msg {
+            color: #f44336;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .success-msg {
+            color: #4caf50;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .admin-badge {
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        .kelompok {
+            text-align: center;
+            margin: 30px auto;
+            max-width: 600px;
+        }
+
+        .kelompok p {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        .wa-link {
+            text-align: center;
+            margin: 30px 20px;
+        }
+
+        .wa-link a {
+            color: #1b5e20;
+            font-weight: bold;
+            text-decoration: none;
+            background: #e8f5e9;
+            padding: 12px 25px;
+            border-radius: 50px;
+            display: inline-block;
+            border: 2px solid #1b5e20;
+            transition: all 0.3s;
+        }
+
+        .wa-link a:hover {
+            background: #1b5e20;
+            color: white;
+        }
+
+        body.dark .wa-link a {
+            color: #a5d6a7;
+            background: #1e2a3a;
+            border-color: #a5d6a7;
+        }
+
+        body.dark .wa-link a:hover {
+            background: #a5d6a7;
+            color: #1e2a3a;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #1b5e20;
+            color: white;
+            margin-top: 40px;
+        }
+
+        .daun {
+            position: fixed;
+            top: -50px;
+            font-size: 24px;
+            animation: jatuh linear infinite;
+            pointer-events: none;
+            z-index: 999;
+            display: none;
+        }
+
+        .daun.visible {
+            display: block;
+        }
+
+        @keyframes jatuh {
+            to { transform: translateY(110vh); }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 80%;
+            max-height: 80%;
+            animation: zoom 0.3s;
+        }
+
+        @keyframes zoom {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #spotifyContainer {
+            margin-top: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+
+<div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImage">
+</div>
+
+<button class="toggle" onclick="toggleMode()">Dark Mode</button>
+<button class="music-btn" onclick="toggleSpotify()">Putar Lagu</button>
+<div class="admin-badge" onclick="showAdminPanel()">Akses Admin</div>
+
+<header>
+    <h1>Bukit Bagarurung</h1>
+</header>
+
+<div class="container">
+    <div class="text-section">
+        <h2>Deskripsi</h2>
+        <div id="deskripsiText">
+            <p>Sejarah Bukit Bagarurung berawal sebagai kawasan hutan alami di wilayah Darma, Kabupaten Kuningan, Provinsi Jawa Barat. Area ini merupakan bagian dari bentang alam perbukitan yang mengelilingi kawasan Waduk Darma dan lereng Gunung Ciremai.</p>
+            <p>Pada masa kolonial Hindia Belanda, puncak bukit ini dimanfaatkan sebagai titik peneropongan atau pengamatan wilayah. Letaknya yang tinggi dan terbuka menjadikannya strategis untuk memantau area sekitar. Sisa-sisa struktur lama dilaporkan pernah ditemukan di area puncak sebagai jejak fungsi tersebut.</p>
+            <p>Setelah kemerdekaan Indonesia, kawasan ini kembali berfungsi sebagai hutan biasa dan dikelola dalam sistem kehutanan negara, termasuk dalam pengelolaan Perhutani. Selama beberapa dekade tidak ada pengembangan khusus sebagai destinasi wisata.</p>
+            <p>Memasuki awal dekade 2020-an, potensi panoramanya mulai dikenal masyarakat. Dari puncaknya terlihat jelas Waduk Darma dan Gunung Ciremai, sehingga kawasan ini kemudian dikembangkan secara bertahap menjadi lokasi wisata alam dan camping ground oleh masyarakat setempat. Hingga sekarang, Bukit Bagarurung berada dalam tahap pengembangan sebagai destinasi wisata alam yang terus ditata fasilitas dan aksesnya.</p>
+        </div>
+    </div>
+
+    <div class="photo-section">
+        <h2>Galeri Foto</h2>
+        <div class="photo-grid" id="photoGrid">
+            <!-- Foto akan ditampilkan di sini via JavaScript -->
+        </div>
+        <div id="spotifyContainer"></div>
+    </div>
+</div>
+
+<!-- AKSES ADMIN -->
+<div id="adminPanel" class="admin-panel hidden">
+    <h2>Akses Admin</h2>
+    
+    <div id="loginForm">
+        <input type="password" id="password" placeholder="Masukkan password admin" autocomplete="off">
+        <button onclick="checkPassword()">Login</button>
+        <div id="loginError" class="error-msg"></div>
+    </div>
+
+    <div id="adminFeatures" class="hidden">
+        <h3>Edit Deskripsi</h3>
+        <textarea id="deskripsiEditor" placeholder="Edit teks deskripsi di sini..."></textarea>
+        <button onclick="saveDeskripsi()">Simpan Deskripsi</button>
+        
+        <h3>Ganti Background</h3>
+        <select id="bgGradient">
+            <option value="linear-gradient(135deg, #a8e6cf, #d4ed9a)">Hijau Segar</option>
+            <option value="linear-gradient(135deg, #89f7fe, #66a6ff)">Biru Laut</option>
+            <option value="linear-gradient(135deg, #ff9a9e, #fad0c4)">Sunset</option>
+            <option value="linear-gradient(135deg, #a18cd1, #fbc2eb)">Ungu Malam</option>
+            <option value="linear-gradient(135deg, #f093fb, #f5576c)">Orange Semangat</option>
+            <option value="linear-gradient(135deg, #134e5e, #71b280)">Hijau Hutan</option>
+            <option value="linear-gradient(135deg, #ff0000, #ffffff)">Merah Putih</option>
+            <option value="linear-gradient(135deg, #f9d423, #4e54c8)">Kuning Biru</option>
+        </select>
+        <button onclick="applyBackground()">Terapkan Background</button>
+        
+        <h3>Statistik Pengunjung</h3>
+        <p>Total pengunjung: <strong id="adminVisitorCount">0</strong></p>
+        <button onclick="resetVisitorCount()">Reset Counter</button>
+        
+        <button class="logout-btn" onclick="logout()">Logout</button>
+        <div id="adminMessage" class="success-msg"></div>
+    </div>
+</div>
+
+<div class="kelompok">
+    <h2>Nama Kelompok</h2>
+    <p>Fawaz</p>
+    <p>Dika</p>
+    <p>Rama</p>
+    <p>Alka</p>
+</div>
+
+<div class="wa-link">
+    <p>Jika ada yang mau dikoreksi, hubungi saya melalui <a href="https://wa.me/6285177595914" target="_blank">WhatsApp</a></p>
+</div>
+
+<footer>© 2026 Bukit Bagarurung Project | Dikembangkan oleh Kelompok 4</footer>
+
+<script>
+// ==================== KONFIGURASI ====================
+const ADMIN_PASSWORD = "142004*Wazz";
+let photos = [];
+let daunInterval = null;
+let spotifyVisible = false;
+
+// 🎵 4 LAGU HINDIA DARI SPOTIFY
+const spotifyTracks = [
+    'https://open.spotify.com/embed/track/5WOSNVChcadlsCRiqXE45K',
+    'https://open.spotify.com/embed/track/2wAiFWjRupWmnDkQcu91MF',
+    'https://open.spotify.com/embed/track/5drW6PGRxkE6MxttzVLNk5',
+    'https://open.spotify.com/embed/track/1bcIiU5FWRa2IYBqx0bk67'
+];
+
+// ==================== GALERI FOTO ====================
+const DEFAULT_PHOTOS = [
+    'unnamed (2).webp'
+];
+
+function loadPhotos() {
+    const saved = localStorage.getItem('bagarurung_photos');
+    if (saved) {
+        photos = JSON.parse(saved);
+    } else {
+        photos = [...DEFAULT_PHOTOS];
+        savePhotos();
+    }
+    renderPhotos();
+}
+
+function savePhotos() {
+    localStorage.setItem('bagarurung_photos', JSON.stringify(photos));
+}
+
+function renderPhotos() {
+    const grid = document.getElementById('photoGrid');
+    grid.innerHTML = '';
+    
+    photos.forEach((photo, index) => {
+        const item = document.createElement('div');
+        item.className = 'photo-item';
+        item.innerHTML = `
+            <img src="${photo}" alt="Bukit Bagarurung" onclick="handlePhotoClick(event, '${photo}')">
+        `;
+        grid.appendChild(item);
+    });
+}
+
+function handlePhotoClick(event, src) {
+    const img = event.target;
+    const parent = img.parentElement;
+    
+    parent.classList.add('flip');
+    setTimeout(() => {
+        parent.classList.remove('flip');
+    }, 500);
+    
+    parent.classList.add('tilt');
+    setTimeout(() => {
+        parent.classList.remove('tilt');
+    }, 500);
+    
+    setTimeout(() => {
+        openModal(src);
+    }, 250);
+}
+
+function openModal(src) {
+    document.getElementById('modalImage').src = src;
+    document.getElementById('myModal').style.display = 'block';
+}
+
+function closeModal() {
+    document.getElementById('myModal').style.display = 'none';
+}
+
+// ==================== SPOTIFY (AUTOPLAY) ====================
+function toggleSpotify() {
+    const container = document.getElementById('spotifyContainer');
+    const btn = document.querySelector('.music-btn');
+    
+    if (spotifyVisible) {
+        container.innerHTML = '';
+        btn.textContent = 'Putar Lagu';
+        spotifyVisible = false;
+    } else {
+        const randomIndex = Math.floor(Math.random() * spotifyTracks.length);
+        const trackUrl = spotifyTracks[randomIndex];
+        
+        container.innerHTML = `
+            <iframe style="border-radius:12px" 
+                src="${trackUrl}?utm_source=generator&autoplay=1" 
+                width="100%" 
+                height="152" 
+                frameBorder="0" 
+                allowfullscreen="" 
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                loading="lazy">
+            </iframe>
+        `;
+        
+        const trackNames = ['everything u are', 'Rumah Ke Rumah', 'Secukupnya', 'Evakuasi'];
+        btn.textContent = `${trackNames[randomIndex]}`;
+        spotifyVisible = true;
+    }
+}
+
+// AUTO PLAY PAS HALAMAN DIBUKA
+window.addEventListener('load', function() {
+    setTimeout(() => {
+        const container = document.getElementById('spotifyContainer');
+        const btn = document.querySelector('.music-btn');
+        
+        const randomIndex = Math.floor(Math.random() * spotifyTracks.length);
+        const trackUrl = spotifyTracks[randomIndex];
+        
+        container.innerHTML = `
+            <iframe style="border-radius:12px" 
+                src="${trackUrl}?utm_source=generator&autoplay=1" 
+                width="100%" 
+                height="152" 
+                frameBorder="0" 
+                allowfullscreen="" 
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                loading="lazy">
+            </iframe>
+        `;
+        
+        const trackNames = ['everything u are', 'Rumah Ke Rumah', 'Secukupnya', 'Evakuasi'];
+        btn.textContent = `${trackNames[randomIndex]}`;
+        spotifyVisible = true;
+    }, 1000);
+});
+
+// ==================== VISITOR COUNTER ====================
+function initVisitorCounter() {
+    let count = localStorage.getItem('visitorCount');
+    if (!count) {
+        count = 1;
+    } else {
+        count = parseInt(count) + 1;
+    }
+    localStorage.setItem('visitorCount', count);
+    document.getElementById('adminVisitorCount').textContent = count;
+}
+
+function resetVisitorCount() {
+    if (sessionStorage.getItem('admin') === 'true') {
+        localStorage.setItem('visitorCount', 1);
+        document.getElementById('adminVisitorCount').textContent = 1;
+        showAdminMessage('Counter pengunjung direset!');
+    }
+}
+
+// ==================== DESKRIPSI ====================
+function loadDeskripsi() {
+    const saved = localStorage.getItem('deskripsiBag');
+    if (saved) {
+        document.getElementById('deskripsiText').innerHTML = saved;
+    }
+    document.getElementById('deskripsiEditor').value = document.getElementById('deskripsiText').innerHTML;
+}
+
+function saveDeskripsi() {
+    if (sessionStorage.getItem('admin') !== 'true') return;
+    
+    const newDeskripsi = document.getElementById('deskripsiEditor').value;
+    document.getElementById('deskripsiText').innerHTML = newDeskripsi;
+    localStorage.setItem('deskripsiBag', newDeskripsi);
+    showAdminMessage('Deskripsi berhasil disimpan!');
+}
+
+// ==================== BACKGROUND ====================
+function applyBackground() {
+    if (sessionStorage.getItem('admin') !== 'true') return;
+    
+    const selected = document.getElementById('bgGradient').value;
+    document.body.style.background = selected;
+    if (document.body.classList.contains('dark')) {
+        document.body.classList.remove('dark');
+    }
+    showAdminMessage('Background berhasil diubah!');
+}
+
+function showAdminMessage(msg) {
+    const msgEl = document.getElementById('adminMessage');
+    msgEl.textContent = msg;
+    setTimeout(() => {
+        msgEl.textContent = '';
+    }, 3000);
+}
+
+// ==================== DAUN JATUH ====================
+function startDaun() {
+    if (daunInterval) return;
+    
+    daunInterval = setInterval(buatDaun, 500);
+    
+    document.querySelectorAll('.daun').forEach(d => {
+        d.classList.add('visible');
+    });
+}
+
+function buatDaun() {
+    const daun = document.createElement('div');
+    daun.classList.add('daun', 'visible');
+    const emojis = ['🌿', '☘️', '🍀', '🌱', '🍃'];
+    daun.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+    daun.style.left = Math.random() * window.innerWidth + 'px';
+    daun.style.animationDuration = (3 + Math.random() * 5) + 's';
+    daun.style.fontSize = (15 + Math.random() * 20) + 'px';
+    document.body.appendChild(daun);
+    setTimeout(() => daun.remove(), 8000);
+}
+
+window.addEventListener('scroll', function() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight;
+    const clientHeight = document.documentElement.clientHeight;
+    
+    if (scrollTop + clientHeight >= scrollHeight - 50) {
+        startDaun();
+    }
+});
+
+// ==================== AKSES ADMIN ====================
+function showAdminPanel() {
+    document.getElementById('adminPanel').classList.remove('hidden');
+}
+
+function checkPassword() {
+    const pw = document.getElementById('password').value;
+    if (pw === ADMIN_PASSWORD) {
+        sessionStorage.setItem('admin', 'true');
+        document.getElementById('loginForm').classList.add('hidden');
+        document.getElementById('adminFeatures').classList.remove('hidden');
+        document.getElementById('loginError').innerHTML = '';
+        
+        document.getElementById('deskripsiEditor').value = document.getElementById('deskripsiText').innerHTML;
+        document.getElementById('adminVisitorCount').textContent = localStorage.getItem('visitorCount') || 1;
+    } else {
+        document.getElementById('loginError').innerHTML = 'Password salah!';
+    }
+}
+
+function logout() {
+    sessionStorage.removeItem('admin');
+    document.getElementById('loginForm').classList.remove('hidden');
+    document.getElementById('adminFeatures').classList.add('hidden');
+    document.getElementById('password').value = '';
+    document.getElementById('adminPanel').classList.add('hidden');
+}
+
+// ==================== DARK MODE ====================
+function toggleMode() {
+    document.body.classList.toggle('dark');
+}
+
+// ==================== INIT ====================
+initVisitorCounter();
+loadDeskripsi();
+loadPhotos();
+
+if (sessionStorage.getItem('admin') === 'true') {
+    document.getElementById('loginForm').classList.add('hidden');
+    document.getElementById('adminFeatures').classList.remove('hidden');
+    document.getElementById('adminVisitorCount').textContent = localStorage.getItem('visitorCount') || 1;
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById('myModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+}
+</script>
+
+</body>
+</html>
