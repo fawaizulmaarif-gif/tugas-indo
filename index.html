@@ -5,15 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bukit Bagarurung - Wisata Kuningan</title>
     <style>
-        /* ===== SEMUA FITUR LAMA TETAP ADA ===== */
-        body {
+        /* ===== RESET & DASAR ===== */
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
             font-family: 'Segoe UI', Arial, sans-serif;
             font-weight: bold;
             font-size: 14px;
             background: linear-gradient(to bottom, #e8f5e9, #ffffff);
             color: #1b5e20;
             transition: background 0.5s, color 0.5s;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         body.dark {
@@ -21,7 +29,7 @@
             color: white;
         }
 
-        /* LOADING ANIMASI (FITUR 8) */
+        /* LOADING ANIMASI */
         #loading {
             position: fixed;
             width: 100%;
@@ -54,12 +62,13 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* HEADER */
         header {
             height: 60vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
+            font-size: clamp(24px, 5vw, 28px);
             font-weight: bold;
             text-align: center;
             background-image: url('unnamed (2).webp');
@@ -68,6 +77,7 @@
             color: white;
             text-shadow: 0 5px 20px rgba(0,0,0,0.8);
             position: relative;
+            width: 100%;
         }
 
         header::after {
@@ -83,65 +93,64 @@
         header h1 {
             position: relative;
             z-index: 1;
+            padding: 0 20px;
+        }
+
+        /* TOMBOL FIXED */
+        .toggle, .music-btn {
+            position: fixed;
+            padding: 8px 16px;
+            background: #1b5e20;
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 12px;
+            font-weight: bold;
+            border: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
 
         .toggle {
-            position: fixed;
             top: 10px;
             right: 10px;
-            padding: 8px 16px;
-            background: #1b5e20;
-            color: white;
-            border-radius: 30px;
-            cursor: pointer;
-            z-index: 1000;
-            font-size: 12px;
-            font-weight: bold;
-            border: none;
         }
 
         .music-btn {
-            position: fixed;
             top: 10px;
             left: 10px;
-            padding: 8px 16px;
-            background: #1b5e20;
-            color: white;
-            border-radius: 30px;
-            cursor: pointer;
-            z-index: 1000;
-            font-size: 12px;
-            font-weight: bold;
-            border: none;
         }
 
+        /* MAIN CONTAINER */
         .container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            width: 90%;
+            width: 100%;
             max-width: 1200px;
             margin: 20px auto;
             gap: 20px;
+            padding: 0 20px;
         }
 
-        .text-section, .photo-section {
-            flex: 1 1 400px;
-            padding: 20px;
-            background: rgba(255,255,255,0.9);
+        /* CARD STYLE */
+        .text-section, .photo-section, .map-section, .comment-section, .kelompok, .wa-link {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 25px;
+            background: rgba(255,255,255,0.95);
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
 
-        body.dark .text-section, body.dark .photo-section {
-            background: rgba(0,0,0,0.6);
-        }
-
-        .text-section p {
-            line-height: 1.6;
-            text-align: justify;
-            margin-bottom: 15px;
-            font-size: 14px;
+        body.dark .text-section, 
+        body.dark .photo-section, 
+        body.dark .map-section, 
+        body.dark .comment-section,
+        body.dark .kelompok,
+        body.dark .wa-link {
+            background: rgba(0,0,0,0.7);
         }
 
         h2 {
@@ -149,17 +158,28 @@
             margin-bottom: 20px;
             font-size: 24px;
             color: #1b5e20;
+            width: 100%;
         }
 
         body.dark h2 {
             color: #a5d6a7;
         }
 
+        /* TEKS SECTION */
+        .text-section p {
+            line-height: 1.8;
+            text-align: justify;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        /* GALERI FOTO */
         .photo-grid {
             display: grid;
-            grid-template-columns: repeat(1, 1fr);
+            grid-template-columns: 1fr;
             gap: 15px;
             margin-top: 20px;
+            width: 100%;
         }
 
         .photo-item {
@@ -167,15 +187,12 @@
             overflow: hidden;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            transition: transform 0.3s, box-shadow 0.3s;
             cursor: pointer;
             transform-style: preserve-3d;
             perspective: 1000px;
-        }
-
-        .photo-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
         }
 
         .photo-item img {
@@ -184,7 +201,11 @@
             object-fit: cover;
             display: block;
             transition: transform 0.5s;
-            transform-style: preserve-3d;
+        }
+
+        .photo-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
         }
 
         .photo-item.flip img {
@@ -202,21 +223,21 @@
             100% { transform: rotateX(0deg) rotateY(0deg); }
         }
 
-        /* ===== PETA LOKASI (FITUR 3) ===== */
-        .map-section {
+        /* SPOTIFY CONTAINER */
+        #spotifyContainer {
+            margin-top: 20px;
+            border-radius: 12px;
+            overflow: hidden;
             width: 100%;
-            margin: 30px auto;
-            padding: 20px;
-            background: rgba(255,255,255,0.9);
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
 
+        /* PETA */
         .map-container {
             width: 100%;
-            height: 400px;
+            height: 350px;
             border-radius: 15px;
             overflow: hidden;
+            margin-bottom: 10px;
         }
 
         .map-container iframe {
@@ -225,16 +246,7 @@
             border: 0;
         }
 
-        /* ===== KOMENTAR PENGUNJUNG (FITUR 10) ===== */
-        .comment-section {
-            width: 100%;
-            margin: 30px auto;
-            padding: 20px;
-            background: rgba(255,255,255,0.9);
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-
+        /* KOMENTAR */
         .comment-section textarea {
             width: 100%;
             padding: 12px;
@@ -243,6 +255,7 @@
             font-size: 14px;
             box-sizing: border-box;
             margin-bottom: 10px;
+            resize: vertical;
         }
 
         .comment-section button {
@@ -253,6 +266,10 @@
             border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
+            width: 100%;
+            max-width: 200px;
+            display: block;
+            margin: 0 auto;
         }
 
         .comment-list {
@@ -261,7 +278,7 @@
 
         .comment-item {
             background: rgba(0,0,0,0.05);
-            padding: 10px;
+            padding: 15px;
             border-radius: 8px;
             margin-bottom: 10px;
         }
@@ -271,17 +288,20 @@
         }
 
         .comment-time {
-            font-size: 10px;
+            font-size: 11px;
             color: #888;
-            margin-top: 5px;
+            margin-top: 8px;
+            text-align: right;
         }
 
+        /* ADMIN PANEL */
         .admin-panel {
-            background: rgba(255,255,255,0.95);
-            padding: 30px;
-            border-radius: 15px;
-            margin: 20px auto;
+            width: 100%;
             max-width: 600px;
+            margin: 20px auto;
+            padding: 25px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
@@ -290,15 +310,13 @@
         }
 
         .admin-panel h2 {
-            margin-top: 0;
-            color: #1b5e20;
+            margin-bottom: 20px;
         }
 
-        body.dark .admin-panel h2 {
-            color: #a5d6a7;
-        }
-
-        .admin-panel input, .admin-panel button, .admin-panel textarea, .admin-panel select {
+        .admin-panel input, 
+        .admin-panel button, 
+        .admin-panel textarea, 
+        .admin-panel select {
             width: 100%;
             padding: 12px;
             margin: 10px 0;
@@ -310,7 +328,7 @@
 
         .admin-panel textarea {
             min-height: 150px;
-            font-family: inherit;
+            resize: vertical;
         }
 
         .admin-panel button {
@@ -328,7 +346,6 @@
 
         .admin-panel .logout-btn {
             background: #f44336;
-            margin-top: 20px;
         }
 
         .admin-panel .logout-btn:hover {
@@ -352,32 +369,32 @@
         }
 
         .admin-badge {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
             background: #ff6b6b;
             color: white;
             padding: 5px 10px;
             border-radius: 20px;
             font-size: 12px;
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            z-index: 1000;
             cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
 
+        /* KELOMPOK */
         .kelompok {
             text-align: center;
-            margin: 30px auto;
-            max-width: 600px;
         }
 
         .kelompok p {
             font-size: 16px;
-            margin: 5px 0;
+            margin: 8px 0;
         }
 
+        /* LINK WA */
         .wa-link {
             text-align: center;
-            margin: 30px 20px;
         }
 
         .wa-link a {
@@ -390,6 +407,7 @@
             display: inline-block;
             border: 2px solid #1b5e20;
             transition: all 0.3s;
+            margin-top: 10px;
         }
 
         .wa-link a:hover {
@@ -408,14 +426,17 @@
             color: #1e2a3a;
         }
 
+        /* FOOTER */
         footer {
             text-align: center;
             padding: 20px;
             background: #1b5e20;
             color: white;
             margin-top: 40px;
+            width: 100%;
         }
 
+        /* DAUN JATUH */
         .daun {
             position: fixed;
             top: -50px;
@@ -434,6 +455,7 @@
             to { transform: translateY(110vh); }
         }
 
+        /* MODAL */
         .modal {
             display: none;
             position: fixed;
@@ -449,8 +471,8 @@
         .modal-content {
             margin: auto;
             display: block;
-            max-width: 80%;
-            max-height: 80%;
+            max-width: 90%;
+            max-height: 90%;
             animation: zoom 0.3s;
         }
 
@@ -469,42 +491,58 @@
             cursor: pointer;
         }
 
-        #spotifyContainer {
-            margin-top: 20px;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .text-section, .photo-section, .map-section, .comment-section, .kelompok, .wa-link {
+                padding: 20px;
+            }
+            
+            h2 {
+                font-size: 20px;
+            }
+            
+            .photo-item img {
+                height: 250px;
+            }
+            
+            .map-container {
+                height: 250px;
+            }
         }
     </style>
 </head>
 <body>
 
-<!-- LOADING ANIMASI (FITUR 8) -->
+<!-- LOADING ANIMASI -->
 <div id="loading">
     <div class="loader"></div>
     <p style="margin-top: 20px; color: #1b5e20;">Loading Bukit Bagarurung...</p>
 </div>
 
-<!-- AUDIO UNTUK SOUND EFFECT (FITUR 9) -->
+<!-- AUDIO UNTUK SOUND EFFECT -->
 <audio id="clickSound" preload="auto">
     <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    <!-- Ganti pake file lokal kalo mau: <source src="click.mp3"> -->
 </audio>
 
-<div id="myModal" class="modal">
+<!-- MODAL FOTO -->
+<div id="myModal" class="modal" onclick="closeModal()">
     <span class="close" onclick="closeModal()">&times;</span>
     <img class="modal-content" id="modalImage">
 </div>
 
+<!-- TOMBOL FIXED -->
 <button class="toggle" onclick="toggleMode()">Dark Mode</button>
 <button class="music-btn" onclick="toggleSpotify()">Putar Lagu</button>
 <div class="admin-badge" onclick="showAdminPanel()">Akses Admin</div>
 
+<!-- HEADER -->
 <header>
     <h1>Bukit Bagarurung</h1>
 </header>
 
+<!-- KONTEN UTAMA -->
 <div class="container">
+    <!-- DESKRIPSI -->
     <div class="text-section">
         <h2>Deskripsi</h2>
         <div id="deskripsiText">
@@ -515,38 +553,51 @@
         </div>
     </div>
 
+    <!-- GALERI FOTO -->
     <div class="photo-section">
         <h2>Galeri Foto</h2>
-        <div class="photo-grid" id="photoGrid">
-            <!-- Foto akan ditampilkan di sini via JavaScript -->
-        </div>
+        <div class="photo-grid" id="photoGrid"></div>
         <div id="spotifyContainer"></div>
     </div>
-</div>
 
-<!-- PETA LOKASI (FITUR 3) -->
-<div class="map-section">
-    <h2>📍 Lokasi Bukit Bagarurung</h2>
-    <div class="map-container">
-        <!-- Google Maps Embed - Darma, Kuningan -->
-        <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126829.789123456!2d108.416667!3d-6.983333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f1a2b3c4d5e6f%3A0x7a8b9c0d1e2f3a4b!2sDarma%2C%20Kuningan%20Regency%2C%20West%20Java!5e0!3m2!1sen!2sid!4v1700000000000"
-            allowfullscreen=""
-            loading="lazy">
-        </iframe>
+    <!-- PETA LOKASI -->
+    <div class="map-section">
+        <h2>📍 Lokasi Bukit Bagarurung</h2>
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126829.789123456!2d108.416667!3d-6.983333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f1a2b3c4d5e6f%3A0x7a8b9c0d1e2f3a4b!2sDarma%2C%20Kuningan%20Regency%2C%20West%20Java!5e0!3m2!1sen!2sid!4v1700000000000"
+                allowfullscreen=""
+                loading="lazy">
+            </iframe>
+        </div>
+        <p style="text-align: center; margin-top: 10px;">Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Jawa Barat</p>
     </div>
-    <p style="text-align: center; margin-top: 10px;">Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Jawa Barat</p>
+
+    <!-- KOMENTAR PENGUNJUNG -->
+    <div class="comment-section">
+        <h2>💬 Komentar Pengunjung</h2>
+        <textarea id="commentInput" placeholder="Tulis komentar Anda..." rows="3"></textarea>
+        <button onclick="addComment()">Kirim Komentar</button>
+        <div class="comment-list" id="commentList"></div>
+    </div>
+
+    <!-- NAMA KELOMPOK -->
+    <div class="kelompok">
+        <h2>Nama Kelompok</h2>
+        <p>Fawaz</p>
+        <p>Dika</p>
+        <p>Rama</p>
+        <p>Alka</p>
+    </div>
+
+    <!-- LINK WA -->
+    <div class="wa-link">
+        <p>Jika ada yang mau dikoreksi, hubungi saya melalui</p>
+        <a href="https://wa.me/6285177595914" target="_blank">WhatsApp</a>
+    </div>
 </div>
 
-<!-- KOMENTAR PENGUNJUNG (FITUR 10) -->
-<div class="comment-section">
-    <h2>💬 Komentar Pengunjung</h2>
-    <textarea id="commentInput" placeholder="Tulis komentar Anda..." rows="3"></textarea>
-    <button onclick="addComment()">Kirim Komentar</button>
-    <div class="comment-list" id="commentList"></div>
-</div>
-
-<!-- AKSES ADMIN -->
+<!-- ADMIN PANEL -->
 <div id="adminPanel" class="admin-panel hidden">
     <h2>Akses Admin</h2>
     
@@ -583,18 +634,7 @@
     </div>
 </div>
 
-<div class="kelompok">
-    <h2>Nama Kelompok</h2>
-    <p>Fawaz</p>
-    <p>Dika</p>
-    <p>Rama</p>
-    <p>Alka</p>
-</div>
-
-<div class="wa-link">
-    <p>Jika ada yang mau dikoreksi, hubungi saya melalui <a href="https://wa.me/6285177595914" target="_blank">WhatsApp</a></p>
-</div>
-
+<!-- FOOTER -->
 <footer>© 2026 Bukit Bagarurung Project | Dikembangkan oleh Kelompok 4</footer>
 
 <script>
@@ -604,7 +644,7 @@ let photos = [];
 let daunInterval = null;
 let spotifyVisible = false;
 
-// 🎵 4 LAGU HINDIA DARI SPOTIFY
+// LAGU SPOTIFY
 const spotifyTracks = [
     'https://open.spotify.com/embed/track/5WOSNVChcadlsCRiqXE45K',
     'https://open.spotify.com/embed/track/2wAiFWjRupWmnDkQcu91MF',
@@ -612,66 +652,45 @@ const spotifyTracks = [
     'https://open.spotify.com/embed/track/1bcIiU5FWRa2IYBqx0bk67'
 ];
 
-// ==================== GALERI FOTO ====================
-const DEFAULT_PHOTOS = [
-    'unnamed (2).webp'
-];
+// FOTO DEFAULT
+const DEFAULT_PHOTOS = ['unnamed (2).webp'];
 
+// ==================== LOAD FOTO ====================
 function loadPhotos() {
     const saved = localStorage.getItem('bagarurung_photos');
-    if (saved) {
-        photos = JSON.parse(saved);
-    } else {
-        photos = [...DEFAULT_PHOTOS];
-        savePhotos();
-    }
+    photos = saved ? JSON.parse(saved) : [...DEFAULT_PHOTOS];
     renderPhotos();
-}
-
-function savePhotos() {
-    localStorage.setItem('bagarurung_photos', JSON.stringify(photos));
 }
 
 function renderPhotos() {
     const grid = document.getElementById('photoGrid');
     grid.innerHTML = '';
-    
     photos.forEach((photo, index) => {
         const item = document.createElement('div');
         item.className = 'photo-item';
-        item.innerHTML = `
-            <img src="${photo}" alt="Bukit Bagarurung" onclick="handlePhotoClick(event, '${photo}')">
-        `;
+        item.innerHTML = `<img src="${photo}" alt="Bukit Bagarurung" onclick="handlePhotoClick(event, '${photo}')">`;
         grid.appendChild(item);
     });
 }
 
-// ==================== SOUND EFFECT (FITUR 9) ====================
+// ==================== SOUND EFFECT ====================
 function playClickSound() {
     const sound = document.getElementById('clickSound');
-    sound.currentTime = 0; // Reset biar bisa diputer lagi
+    sound.currentTime = 0;
     sound.play().catch(e => console.log('Sound error:', e));
 }
 
 function handlePhotoClick(event, src) {
-    playClickSound(); // Mainin sound
-    
+    playClickSound();
     const img = event.target;
     const parent = img.parentElement;
     
-    parent.classList.add('flip');
+    parent.classList.add('flip', 'tilt');
     setTimeout(() => {
-        parent.classList.remove('flip');
+        parent.classList.remove('flip', 'tilt');
     }, 500);
     
-    parent.classList.add('tilt');
-    setTimeout(() => {
-        parent.classList.remove('tilt');
-    }, 500);
-    
-    setTimeout(() => {
-        openModal(src);
-    }, 250);
+    setTimeout(() => openModal(src), 250);
 }
 
 function openModal(src) {
@@ -695,46 +714,39 @@ function toggleSpotify() {
     } else {
         const randomIndex = Math.floor(Math.random() * spotifyTracks.length);
         const trackUrl = spotifyTracks[randomIndex];
-        
         container.innerHTML = `
             <iframe style="border-radius:12px" 
                 src="${trackUrl}?utm_source=generator" 
-                width="100%" 
-                height="152" 
-                frameBorder="0" 
+                width="100%" height="152" frameBorder="0" 
                 allowfullscreen="" 
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
                 loading="lazy">
             </iframe>
         `;
-        
         const trackNames = ['everything u are', 'Rumah Ke Rumah', 'Secukupnya', 'Evakuasi'];
-        btn.textContent = `${trackNames[randomIndex]}`;
+        btn.textContent = trackNames[randomIndex];
         spotifyVisible = true;
     }
 }
 
-// ==================== KOMENTAR PENGUNJUNG (FITUR 10) ====================
+// ==================== KOMENTAR ====================
 function loadComments() {
     const comments = JSON.parse(localStorage.getItem('bagarurung_comments')) || [];
     const list = document.getElementById('commentList');
     list.innerHTML = '';
-    
     comments.slice().reverse().forEach(comment => {
-        const item = document.createElement('div');
-        item.className = 'comment-item';
-        item.innerHTML = `
-            <div>${comment.text}</div>
-            <div class="comment-time">${comment.time}</div>
+        list.innerHTML += `
+            <div class="comment-item">
+                <div>${comment.text}</div>
+                <div class="comment-time">${comment.time}</div>
+            </div>
         `;
-        list.appendChild(item);
     });
 }
 
 function addComment() {
     const input = document.getElementById('commentInput');
     const text = input.value.trim();
-    
     if (text) {
         const comments = JSON.parse(localStorage.getItem('bagarurung_comments')) || [];
         comments.push({
@@ -747,8 +759,8 @@ function addComment() {
     }
 }
 
-// ==================== LOADING ANIMASI (FITUR 8) ====================
-window.addEventListener('load', function() {
+// ==================== LOADING ====================
+window.addEventListener('load', () => {
     setTimeout(() => {
         document.getElementById('loading').classList.add('hidden');
     }, 1500);
@@ -756,12 +768,8 @@ window.addEventListener('load', function() {
 
 // ==================== VISITOR COUNTER ====================
 function initVisitorCounter() {
-    let count = localStorage.getItem('visitorCount');
-    if (!count) {
-        count = 1;
-    } else {
-        count = parseInt(count) + 1;
-    }
+    let count = localStorage.getItem('visitorCount') || 0;
+    count = parseInt(count) + 1;
     localStorage.setItem('visitorCount', count);
     document.getElementById('adminVisitorCount').textContent = count;
 }
@@ -777,15 +785,12 @@ function resetVisitorCount() {
 // ==================== DESKRIPSI ====================
 function loadDeskripsi() {
     const saved = localStorage.getItem('deskripsiBag');
-    if (saved) {
-        document.getElementById('deskripsiText').innerHTML = saved;
-    }
+    if (saved) document.getElementById('deskripsiText').innerHTML = saved;
     document.getElementById('deskripsiEditor').value = document.getElementById('deskripsiText').innerHTML;
 }
 
 function saveDeskripsi() {
     if (sessionStorage.getItem('admin') !== 'true') return;
-    
     const newDeskripsi = document.getElementById('deskripsiEditor').value;
     document.getElementById('deskripsiText').innerHTML = newDeskripsi;
     localStorage.setItem('deskripsiBag', newDeskripsi);
@@ -795,32 +800,23 @@ function saveDeskripsi() {
 // ==================== BACKGROUND ====================
 function applyBackground() {
     if (sessionStorage.getItem('admin') !== 'true') return;
-    
     const selected = document.getElementById('bgGradient').value;
     document.body.style.background = selected;
-    if (document.body.classList.contains('dark')) {
-        document.body.classList.remove('dark');
-    }
+    if (document.body.classList.contains('dark')) document.body.classList.remove('dark');
     showAdminMessage('Background berhasil diubah!');
 }
 
 function showAdminMessage(msg) {
     const msgEl = document.getElementById('adminMessage');
     msgEl.textContent = msg;
-    setTimeout(() => {
-        msgEl.textContent = '';
-    }, 3000);
+    setTimeout(() => msgEl.textContent = '', 3000);
 }
 
 // ==================== DAUN JATUH ====================
 function startDaun() {
     if (daunInterval) return;
-    
     daunInterval = setInterval(buatDaun, 500);
-    
-    document.querySelectorAll('.daun').forEach(d => {
-        d.classList.add('visible');
-    });
+    document.querySelectorAll('.daun').forEach(d => d.classList.add('visible'));
 }
 
 function buatDaun() {
@@ -835,29 +831,24 @@ function buatDaun() {
     setTimeout(() => daun.remove(), 8000);
 }
 
-window.addEventListener('scroll', function() {
+window.addEventListener('scroll', () => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight;
     const clientHeight = document.documentElement.clientHeight;
-    
-    if (scrollTop + clientHeight >= scrollHeight - 50) {
-        startDaun();
-    }
+    if (scrollTop + clientHeight >= scrollHeight - 50) startDaun();
 });
 
-// ==================== AKSES ADMIN ====================
+// ==================== ADMIN PANEL ====================
 function showAdminPanel() {
     document.getElementById('adminPanel').classList.remove('hidden');
 }
 
 function checkPassword() {
-    const pw = document.getElementById('password').value;
-    if (pw === ADMIN_PASSWORD) {
+    if (document.getElementById('password').value === ADMIN_PASSWORD) {
         sessionStorage.setItem('admin', 'true');
         document.getElementById('loginForm').classList.add('hidden');
         document.getElementById('adminFeatures').classList.remove('hidden');
         document.getElementById('loginError').innerHTML = '';
-        
         document.getElementById('deskripsiEditor').value = document.getElementById('deskripsiText').innerHTML;
         document.getElementById('adminVisitorCount').textContent = localStorage.getItem('visitorCount') || 1;
     } else {
@@ -892,9 +883,7 @@ if (sessionStorage.getItem('admin') === 'true') {
 
 window.onclick = function(event) {
     const modal = document.getElementById('myModal');
-    if (event.target == modal) {
-        modal.style.display = 'none';
-    }
+    if (event.target == modal) modal.style.display = 'none';
 }
 </script>
 
