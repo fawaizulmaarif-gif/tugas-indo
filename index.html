@@ -67,21 +67,6 @@
             border: none;
         }
 
-        .music-btn {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            padding: 8px 16px;
-            background: #1b5e20;
-            color: white;
-            border-radius: 30px;
-            cursor: pointer;
-            z-index: 1000;
-            font-size: 12px;
-            font-weight: bold;
-            border: none;
-        }
-
         .container {
             display: flex;
             flex-wrap: wrap;
@@ -378,7 +363,6 @@
 </div>
 
 <button class="toggle" onclick="toggleMode()">Dark Mode</button>
-<button class="music-btn" onclick="toggleSpotify()">Putar Lagu</button>
 <div class="admin-badge" onclick="showAdminPanel()">Akses Admin</div>
 
 <header>
@@ -461,7 +445,6 @@
 const ADMIN_PASSWORD = "142004*Wazz";
 let photos = [];
 let daunInterval = null;
-let spotifyVisible = false;
 
 // 🎵 4 LAGU HINDIA DARI SPOTIFY
 const spotifyTracks = [
@@ -533,46 +516,16 @@ function closeModal() {
     document.getElementById('myModal').style.display = 'none';
 }
 
-// ==================== SPOTIFY (AUTOPLAY) ====================
-function toggleSpotify() {
-    const container = document.getElementById('spotifyContainer');
-    const btn = document.querySelector('.music-btn');
-    
-    if (spotifyVisible) {
-        container.innerHTML = '';
-        btn.textContent = 'Putar Lagu';
-        spotifyVisible = false;
-    } else {
-        const randomIndex = Math.floor(Math.random() * spotifyTracks.length);
-        const trackUrl = spotifyTracks[randomIndex];
-        
-        container.innerHTML = `
-            <iframe style="border-radius:12px" 
-                src="${trackUrl}?utm_source=generator&autoplay=1" 
-                width="100%" 
-                height="152" 
-                frameBorder="0" 
-                allowfullscreen="" 
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                loading="lazy">
-            </iframe>
-        `;
-        
-        const trackNames = ['everything u are', 'Rumah Ke Rumah', 'Secukupnya', 'Evakuasi'];
-        btn.textContent = `${trackNames[randomIndex]}`;
-        spotifyVisible = true;
-    }
-}
-
-// AUTO PLAY PAS HALAMAN DIBUKA
+// ==================== AUTOPLAY SPOTIFY (TANPA TOMBOL) ====================
 window.addEventListener('load', function() {
     setTimeout(() => {
         const container = document.getElementById('spotifyContainer');
-        const btn = document.querySelector('.music-btn');
         
+        // Pilih lagu random
         const randomIndex = Math.floor(Math.random() * spotifyTracks.length);
         const trackUrl = spotifyTracks[randomIndex];
         
+        // Auto puter tanpa tombol
         container.innerHTML = `
             <iframe style="border-radius:12px" 
                 src="${trackUrl}?utm_source=generator&autoplay=1" 
@@ -584,11 +537,7 @@ window.addEventListener('load', function() {
                 loading="lazy">
             </iframe>
         `;
-        
-        const trackNames = ['everything u are', 'Rumah Ke Rumah', 'Secukupnya', 'Evakuasi'];
-        btn.textContent = `${trackNames[randomIndex]}`;
-        spotifyVisible = true;
-    }, 1000);
+    }, 1000); // Delay 1 detik
 });
 
 // ==================== VISITOR COUNTER ====================
