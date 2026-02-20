@@ -120,6 +120,20 @@
             left: 10px;
         }
 
+        .admin-badge {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
         /* MAIN CONTAINER */
         .container {
             max-width: 900px;
@@ -128,7 +142,7 @@
         }
 
         /* CARD STYLE */
-        .text-section, .photo-section, .map-section, .comment-section, .kelompok, .wa-link {
+        .card {
             width: 100%;
             margin: 30px auto;
             padding: 25px;
@@ -137,12 +151,7 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
 
-        body.dark .text-section, 
-        body.dark .photo-section, 
-        body.dark .map-section, 
-        body.dark .comment-section,
-        body.dark .kelompok,
-        body.dark .wa-link {
+        body.dark .card {
             background: rgba(0,0,0,0.7);
         }
 
@@ -158,12 +167,10 @@
             color: #a5d6a7;
         }
 
-        /* TEKS SECTION - RATA KANAN-KIRI */
-        .text-section p {
+        /* DESKRIPSI */
+        .deskripsi p {
             text-align: justify;
             margin-bottom: 20px;
-            font-size: 16px;
-            line-height: 1.8;
         }
 
         /* GALERI FOTO */
@@ -219,7 +226,7 @@
             overflow: hidden;
         }
 
-        /* PETA LOKASI - TITIK SPESIFIK */
+        /* PETA LOKASI - FIX TANPA API KEY */
         .map-container {
             width: 100%;
             height: 350px;
@@ -234,67 +241,58 @@
             border: 0;
         }
 
-        .map-section p {
+        .map-info {
             text-align: center;
             font-size: 15px;
-            margin-top: 10px;
             color: #555;
         }
 
-        body.dark .map-section p {
+        body.dark .map-info {
             color: #ccc;
         }
 
-        /* KOMENTAR */
-        .comment-section textarea {
-            width: 100%;
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid #ccc;
-            font-size: 15px;
-            margin-bottom: 15px;
-            resize: vertical;
-            font-family: inherit;
+        /* KELOMPOK */
+        .kelompok {
+            text-align: center;
         }
 
-        .comment-section button {
+        .kelompok p {
+            font-size: 16px;
+            margin: 8px 0;
+        }
+
+        /* LINK WA */
+        .wa-link {
+            text-align: center;
+        }
+
+        .wa-link a {
+            color: #1b5e20;
+            font-weight: bold;
+            text-decoration: none;
+            background: #e8f5e9;
+            padding: 12px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            border: 2px solid #1b5e20;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .wa-link a:hover {
             background: #1b5e20;
             color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 15px;
-            display: block;
-            margin: 0 auto;
-            transition: background 0.3s;
         }
 
-        .comment-section button:hover {
-            background: #2e7d32;
+        body.dark .wa-link a {
+            color: #a5d6a7;
+            background: #1e2a3a;
+            border-color: #a5d6a7;
         }
 
-        .comment-list {
-            margin-top: 25px;
-        }
-
-        .comment-item {
-            background: rgba(0,0,0,0.05);
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 12px;
-        }
-
-        body.dark .comment-item {
-            background: rgba(255,255,255,0.1);
-        }
-
-        .comment-time {
-            font-size: 12px;
-            color: #888;
-            margin-top: 8px;
-            text-align: right;
+        body.dark .wa-link a:hover {
+            background: #a5d6a7;
+            color: #1e2a3a;
         }
 
         /* ADMIN PANEL */
@@ -344,64 +342,7 @@
 
         .hidden { display: none; }
 
-        .admin-badge {
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            background: #ff6b6b;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            cursor: pointer;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-
-        /* KELOMPOK */
-        .kelompok {
-            text-align: center;
-        }
-
-        .kelompok p {
-            font-size: 16px;
-            margin: 8px 0;
-        }
-
-        /* LINK WA */
-        .wa-link {
-            text-align: center;
-        }
-
-        .wa-link a {
-            color: #1b5e20;
-            font-weight: bold;
-            text-decoration: none;
-            background: #e8f5e9;
-            padding: 12px 30px;
-            border-radius: 50px;
-            display: inline-block;
-            border: 2px solid #1b5e20;
-            transition: all 0.3s;
-            margin-top: 10px;
-        }
-
-        .wa-link a:hover {
-            background: #1b5e20;
-            color: white;
-        }
-
-        body.dark .wa-link a {
-            color: #a5d6a7;
-            background: #1e2a3a;
-            border-color: #a5d6a7;
-        }
-
-        body.dark .wa-link a:hover {
-            background: #a5d6a7;
-            color: #1e2a3a;
-        }
-
+        /* FOOTER */
         footer {
             text-align: center;
             padding: 20px;
@@ -483,29 +424,31 @@
     <p style="margin-top: 20px; color: #1b5e20;">Loading Bukit Bagarurung...</p>
 </div>
 
-<!-- AUDIO KLIK (file click.mp3 - harus ada di folder yang sama) -->
+<!-- AUDIO KLIK -->
 <audio id="clickSound" preload="auto">
     <source src="click.mp3" type="audio/mpeg">
-    <!-- Fallback: kalo file ga ada, pake base64 bunyi klik pendek -->
-    <source src="data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4LjI5LjEwMQAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADMgD///////////////////////////////////////////8AAAA8TEFNRTMuMTAwAc8AAAAAAAAAABSAJAYjQQABeAAALRg4Yv/+MYwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="audio/mpeg">
 </audio>
 
-<div id="myModal" class="modal">
+<!-- MODAL FOTO -->
+<div id="myModal" class="modal" onclick="closeModal()">
     <span class="close" onclick="closeModal()">&times;</span>
     <img class="modal-content" id="modalImage">
 </div>
 
+<!-- TOMBOL FIXED -->
 <button class="toggle" onclick="toggleMode()">Dark Mode</button>
 <button class="music-btn" onclick="toggleSpotify()">Putar Lagu</button>
 <div class="admin-badge" onclick="showAdminPanel()">Akses Admin</div>
 
+<!-- HEADER -->
 <header>
     <h1>Bukit Bagarurung</h1>
 </header>
 
+<!-- KONTEN UTAMA -->
 <div class="container">
-    <!-- DESKRIPSI - RATA KANAN-KIRI -->
-    <div class="text-section">
+    <!-- DESKRIPSI -->
+    <div class="card deskripsi">
         <h2>Deskripsi</h2>
         <div id="deskripsiText">
             <p>Sejarah Bukit Bagarurung berawal sebagai kawasan hutan alami di wilayah Darma, Kabupaten Kuningan, Provinsi Jawa Barat. Area ini merupakan bagian dari bentang alam perbukitan yang mengelilingi kawasan Waduk Darma dan lereng Gunung Ciremai.</p>
@@ -516,38 +459,27 @@
     </div>
 
     <!-- GALERI FOTO -->
-    <div class="photo-section">
+    <div class="card">
         <h2>Galeri Foto</h2>
         <div class="photo-grid" id="photoGrid"></div>
         <div id="spotifyContainer"></div>
     </div>
 
-    <!-- PETA LOKASI - TITIK SPESIFIK BAGARURUNG -->
-    <div class="map-section">
+    <!-- PETA LOKASI - FIX TANPA API KEY -->
+    <div class="card">
         <h2>📍 Lokasi Bukit Bagarurung</h2>
         <div class="map-container">
-            <!-- Google Maps Embed dengan koordinat spesifik Bagarurung (Darma, Kuningan) -->
-            <!-- Menggunakan mode place dengan query "Bukit Bagarurung" dan koordinat untuk presisi [citation:2][citation:10] -->
             <iframe 
-                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&q=Bukit+Bagarurung&center=-7.0157,108.4112&zoom=17"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15854.123456789!2d108.4112!3d-7.0157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMDAnNTYuNSJTIDEwOMKwMjQnNDAuMyJF!5e0!3m2!1sen!2sid!4v1700000000000"
                 allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
+                loading="lazy">
             </iframe>
         </div>
-        <p style="text-align: center; margin-top: 10px;">📍 Koordinat: 7°00'56.5"S 108°24'40.3"E<br>Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Jawa Barat</p>
-    </div>
-
-    <!-- KOMENTAR PENGUNJUNG -->
-    <div class="comment-section">
-        <h2>💬 Komentar Pengunjung</h2>
-        <textarea id="commentInput" placeholder="Tulis komentar Anda..." rows="3"></textarea>
-        <button onclick="addComment()">Kirim Komentar</button>
-        <div class="comment-list" id="commentList"></div>
+        <p class="map-info">📍 Koordinat: 7°00'56.5"S 108°24'40.3"E<br>Desa Sakerta Timur, Kecamatan Darma, Kabupaten Kuningan, Jawa Barat</p>
     </div>
 
     <!-- NAMA KELOMPOK -->
-    <div class="kelompok">
+    <div class="card kelompok">
         <h2>Nama Kelompok</h2>
         <p>Fawaz</p>
         <p>Dika</p>
@@ -556,7 +488,7 @@
     </div>
 
     <!-- LINK WA -->
-    <div class="wa-link">
+    <div class="card wa-link">
         <p>Jika ada yang mau dikoreksi, hubungi saya melalui</p>
         <a href="https://wa.me/6285177595914" target="_blank">WhatsApp</a>
     </div>
@@ -599,6 +531,7 @@
     </div>
 </div>
 
+<!-- FOOTER -->
 <footer>© 2026 Bukit Bagarurung Project | Dikembangkan oleh Kelompok 4</footer>
 
 <script>
@@ -637,7 +570,7 @@ function renderPhotos() {
     });
 }
 
-// ==================== SOUND EFFECT KLIK (BENERAN) ====================
+// ==================== SOUND EFFECT ====================
 function playClickSound() {
     const sound = document.getElementById('clickSound');
     if (sound) {
@@ -647,7 +580,7 @@ function playClickSound() {
 }
 
 function handlePhotoClick(event, src) {
-    playClickSound(); // Bunyi klik pendek
+    playClickSound();
     
     const img = event.target;
     const parent = img.parentElement;
@@ -693,36 +626,6 @@ function toggleSpotify() {
         const trackNames = ['everything u are', 'Rumah Ke Rumah', 'Secukupnya', 'Evakuasi'];
         btn.textContent = trackNames[randomIndex];
         spotifyVisible = true;
-    }
-}
-
-// ==================== KOMENTAR ====================
-function loadComments() {
-    const comments = JSON.parse(localStorage.getItem('bagarurung_comments')) || [];
-    const list = document.getElementById('commentList');
-    list.innerHTML = '';
-    comments.slice().reverse().forEach(comment => {
-        list.innerHTML += `
-            <div class="comment-item">
-                <div>${comment.text}</div>
-                <div class="comment-time">${comment.time}</div>
-            </div>
-        `;
-    });
-}
-
-function addComment() {
-    const input = document.getElementById('commentInput');
-    const text = input.value.trim();
-    if (text) {
-        const comments = JSON.parse(localStorage.getItem('bagarurung_comments')) || [];
-        comments.push({
-            text: text,
-            time: new Date().toLocaleString('id-ID')
-        });
-        localStorage.setItem('bagarurung_comments', JSON.stringify(comments));
-        input.value = '';
-        loadComments();
     }
 }
 
@@ -805,7 +708,7 @@ window.addEventListener('scroll', () => {
     if (scrollTop + clientHeight >= scrollHeight - 50) startDaun();
 });
 
-// ==================== ADMIN PANEL ====================
+// ==================== AKSES ADMIN ====================
 function showAdminPanel() {
     document.getElementById('adminPanel').classList.remove('hidden');
 }
@@ -840,7 +743,6 @@ function toggleMode() {
 initVisitorCounter();
 loadDeskripsi();
 loadPhotos();
-loadComments();
 
 if (sessionStorage.getItem('admin') === 'true') {
     document.getElementById('loginForm').classList.add('hidden');
